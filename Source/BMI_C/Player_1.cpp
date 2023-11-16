@@ -29,35 +29,60 @@ void APlayer_1::Tick(float DeltaTime)
 void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	//Binding Computer Controller :
 	PlayerInputComponent -> BindAxis(TEXT("MoveForward") , this , &APlayer_1::MoveForward);
 	PlayerInputComponent -> BindAxis(TEXT("LookUp") , this , &APlayer_1::LookUp);
 	PlayerInputComponent -> BindAxis(TEXT("LookRight") , this , &APlayer_1::LookRight);
 	PlayerInputComponent -> BindAxis(TEXT("MoveRight") , this , &APlayer_1::MoveRight);
-
 	PlayerInputComponent -> BindAction(TEXT("Jump") ,IE_Pressed, this , &APlayer_1::JumpAction);
+
+	// Binding Gamepad Controller :
+	PlayerInputComponent -> BindAxis(TEXT("LookUpController"),this,&APlayer_1::LookUpController);
+	PlayerInputComponent -> BindAxis(TEXT("LookRightController") , this , &APlayer_1::LookRightController);
 	
 	
 }
 
+
+
+
+// Movement Actions :
+//Computer Controller Actions 
  void APlayer_1::MoveForward(float AxisValue)
  {
 	 AddMovementInput(GetActorForwardVector() * AxisValue);
  }
+
 void APlayer_1::LookUp(float CameraRotation)
 {
 	AddControllerPitchInput(CameraRotation);
 }
+
 void APlayer_1::LookRight(float CameraRotation)
 {
 	AddControllerYawInput(CameraRotation);
 }
+
 void APlayer_1::MoveRight(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector() * AxisValue) ;
 }
+
 void APlayer_1::JumpAction()
 {
 	Jump();
+}
+
+
+//Gamepad Controller
+void APlayer_1::LookUpController(float CameraRotation)
+{
+	AddControllerPitchInput(CameraRotation * RotationRate * GetWorld()->GetDeltaSeconds()) ;
+}
+void APlayer_1::LookRightController(float CameraRotation)
+{
+	AddControllerYawInput(CameraRotation * RotationRate * GetWorld() -> GetDeltaSeconds());
 }
 
 

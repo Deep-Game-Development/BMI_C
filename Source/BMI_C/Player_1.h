@@ -26,10 +26,21 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 private:
+	//Move Functions :
+	//Computer Controller
 	void MoveForward(float AxisValue);
 	void LookUp(float CameraRotation);
 	void MoveRight(float AxisValue);
 	void LookRight(float CameraRotation);
 	void JumpAction();
+
+	//Gamepad Controller
+	void LookUpController(float CameraRotation);
+	void LookRightController(float CameraRotation); 
+
+
+	// Move Variables :
+	UPROPERTY(EditAnywhere)
+	float RotationRate = 100.0 ;
 
 };
