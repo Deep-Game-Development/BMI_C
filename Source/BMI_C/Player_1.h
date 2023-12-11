@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputAction.h"
 #include "GameFramework/Character.h"
 #include "Player_1.generated.h"
+
+class UInputMappingContext ;
 
 UCLASS()
 class BMI_C_API APlayer_1 : public ACharacter
@@ -19,24 +22,40 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
+	UInputMappingContext* Player_1MapingContext ;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
+	UInputAction* PlayerInputMove ;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
+	UInputAction* PlayerInputLook ;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
+    UInputAction* PlayerInputJump ; 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 private:
 	//Move Functions :
+	void PlayerMove (const FInputActionValue& InputValue) ;
+	void PlayerLook (const FInputActionValue& InputValue) ;
+	void PlayerJump (const FInputActionValue& InputValue) ;
 	//Computer Controller
-	void MoveForward(float AxisValue);
-	void LookUp(float CameraRotation);
-	void MoveRight(float AxisValue);
-	void LookRight(float CameraRotation);
-	void JumpAction();
+	//void MoveForward(float AxisValue);
+	//void LookUp(float CameraRotation);
+	//void MoveRight(float AxisValue);
+	//void LookRight(float CameraRotation);
+	//void JumpAction();
 
 	//Gamepad Controller
-	void LookUpController(float CameraRotation);
-	void LookRightController(float CameraRotation); 
+	//void LookUpController(float CameraRotation);
+	//void LookRightController(float CameraRotation); 
 
 
 	// Move Variables :

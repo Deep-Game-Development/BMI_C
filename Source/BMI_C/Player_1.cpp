@@ -2,7 +2,9 @@
 
 
 #include "Player_1.h"
-
+#include "EnhancedInputSubsystems.h"
+#include "Animation/BlendSpaceBase.h"
+#include "EnhancedInputComponent.h"
 // Sets default values
 APlayer_1::APlayer_1()
 {
@@ -15,6 +17,14 @@ APlayer_1::APlayer_1()
 void APlayer_1::BeginPlay()
 {
 	Super::BeginPlay();
+	//Setup enhanced input
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer :: GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController -> GetLocalPlayer()))
+		{
+			Subsystem -> AddMappingContext(Player_1MapingContext , 0) ;
+		}
+	}
 	
 }
 
@@ -29,64 +39,34 @@ void APlayer_1::Tick(float DeltaTime)
 void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		//Binding sprint actions 
+		EnhancedInputComponent->BindAction(PlayerInputMove , ETriggerEvent::Triggered , this , &APlayer_1::PlayerMove) ;
+		EnhancedInputComponent->BindAction(PlayerInputLook , ETriggerEvent::Triggered , this , &APlayer_1::PlayerLook) ;
+		EnhancedInputComponent->BindAction(PlayerInputJump , ETriggerEvent::Triggered , this , &APlayer_1::PlayerJump) ;
+	}
+}
 
-	//Binding Computer Controller :
-	PlayerInputComponent -> BindAxis(TEXT("MoveForward") , this , &APlayer_1::MoveForward);
-	PlayerInputComponent -> BindAxis(TEXT("LookUp") , this , &APlayer_1::LookUp);
-	PlayerInputComponent -> BindAxis(TEXT("LookRight") , this , &APlayer_1::LookRight);
-	PlayerInputComponent -> BindAxis(TEXT("MoveRight") , this , &APlayer_1::MoveRight);
-	PlayerInputComponent -> BindAction(TEXT("Jump") ,IE_Pressed, this , &APlayer_1::JumpAction);
-
-	// Binding Gamepad Controller :
-	PlayerInputComponent -> BindAxis(TEXT("LookUpController"),this,&APlayer_1::LookUpController);
-	PlayerInputComponent -> BindAxis(TEXT("LookRightController") , this , &APlayer_1::LookRightController);
+// Sprint functions
+void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
+{
+	FVector2d Direction = InputValue.Get<FVector2d>();
+	AddMovementInput(GetActorForwardVector()*Direction.Y);
+	AddMovementInput(GetActorRightVector()*Direction.X) ;
 	
-	
 }
-
-
-
-
-// Movement Actions :
-//Computer Controller Actions 
- void APlayer_1::MoveForward(float AxisValue)
- {
-	 AddMovementInput(GetActorForwardVector() * AxisValue);
- }
-
-void APlayer_1::LookUp(float CameraRotation)
+void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
 {
-	AddControllerPitchInput(CameraRotation);
+	FVector2d CameraRotation = InputValue.Get<FVector2d>();
+	AddControllerPitchInput(CameraRotation.Y * -1 * RotationRate);
+	AddControllerYawInput(CameraRotation.X * RotationRate);
 }
-
-void APlayer_1::LookRight(float CameraRotation)
+void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 {
-	AddControllerYawInput(CameraRotation);
+	bool Jumped = InputValue.Get<bool>();
+	if (Jumped)
+	{
+		Jump();
+	}
 }
-
-void APlayer_1::MoveRight(float AxisValue)
-{
-	AddMovementInput(GetActorRightVector() * AxisValue) ;
-}
-
-void APlayer_1::JumpAction()
-{
-	Jump();
-}
-
-
-//Gamepad Controller
-void APlayer_1::LookUpController(float CameraRotation)
-{
-	AddControllerPitchInput(CameraRotation * RotationRate * GetWorld()->GetDeltaSeconds()) ;
-}
-void APlayer_1::LookRightController(float CameraRotation)
-{
-	AddControllerYawInput(CameraRotation * RotationRate * GetWorld() -> GetDeltaSeconds());
-}
-
-
-
-
-
-
