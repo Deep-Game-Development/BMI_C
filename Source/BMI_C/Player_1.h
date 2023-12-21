@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "InputAction.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Player_1.generated.h"
 
 class UInputMappingContext ;
@@ -34,6 +35,8 @@ protected:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
     UInputAction* PlayerInputJump ; 
 
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
+	UInputAction* PlayerInputDash ;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -46,6 +49,9 @@ private:
 	void PlayerMove (const FInputActionValue& InputValue) ;
 	void PlayerLook (const FInputActionValue& InputValue) ;
 	void PlayerJump (const FInputActionValue& InputValue) ;
+	void PlayerDash (const FInputActionValue& InputValue) ;
+	void DashDelay ();
+	void TurnOnGravityForDash() ;
 	//Computer Controller
 	//void MoveForward(float AxisValue);
 	//void LookUp(float CameraRotation);
@@ -57,9 +63,26 @@ private:
 	//void LookUpController(float CameraRotation);
 	//void LookRightController(float CameraRotation); 
 
+	UCharacterMovementComponent*PlayerCharacterMovementComponent ;
 
 	// Move Variables :
-	UPROPERTY(EditAnywhere)
-	float RotationRate = 100.0 ;
+	UPROPERTY(EditAnywhere , Category="Movement")
+	float CameraRotationRate = 10.0 ;
+
+	UPROPERTY(EditAnywhere , Category="Movement")
+	float DashDistance = 6000 ;
+
+	UPROPERTY(EditAnywhere , Category= "Movement")
+	float ForceToStopPlayerDashing  = 10 ;
+		
+	float ExtraRotationAmount_1  ;	
+
+	FVector PlayerVelocityForDash ;
+	
+	FVector2d Direction ;
+
+	bool Dashed_1 = false ;
+
+	
 
 };
