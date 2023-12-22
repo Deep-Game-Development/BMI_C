@@ -154,7 +154,7 @@ void APlayer_1::TurnOnGravityForDash()
 {
 	PlayerCharacterMovementComponent -> GravityScale = 1 ;
 	float PlayerVelocityAmount = PlayerCharacterMovementComponent->GetLastUpdateVelocity().Size();
-	if (PlayerVelocityAmount > 100)
+	if (PlayerVelocityAmount > MinSpeedAmountToStopDashing)
 	{
 		PlayerCharacterMovementComponent->AddForce(PlayerVelocityForDash*ForceToStopPlayerDashing*-1) ;		
 	}

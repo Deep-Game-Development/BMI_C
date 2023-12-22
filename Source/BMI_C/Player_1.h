@@ -75,7 +75,10 @@ private:
 	UPROPERTY(EditAnywhere , Category= "Movement")
 	float ForceToStopPlayerDashing  = 10 ;
 		
-	float ExtraRotationAmount_1  ;	
+	UPROPERTY(EditAnywhere , Category= "Movement")
+	float MinSpeedAmountToStopDashing = 150;
+	
+	float ExtraRotationAmount_1  ;
 
 	FVector PlayerVelocityForDash ;
 	
@@ -83,6 +86,6 @@ private:
 
 	bool Dashed_1 = false ;
 
-	
+		
 
 };
