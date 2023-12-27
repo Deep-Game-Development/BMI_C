@@ -11,6 +11,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Physics/ImmediatePhysics/ImmediatePhysicsShared/ImmediatePhysicsCore.h"
 // Sets default values
+
+
 APlayer_1::APlayer_1()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -31,6 +33,7 @@ void APlayer_1::BeginPlay()
 		}
 		
 	}
+	// Get character movement component 
 	PlayerCharacterMovementComponent = GetCharacterMovement() ;
 	
 }
@@ -42,7 +45,7 @@ void APlayer_1::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
+//  bind functionality to input
 void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -56,12 +59,97 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 }
 
-// Sprint functions
+
+
+
+
+// Sprint 
 void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 {
-	//These ifs are for the dash veloctiy 
+	
 	Direction = InputValue.Get<FVector2d>();
-	if (Direction.X == 0 && Direction.Y==1)
+	//to set extra rotation amount for dash 
+	calculateExtraRotationAmount() ;
+	// Sprint 
+	AddMovementInput(GetActorForwardVector()*Direction.Y);
+	AddMovementInput(GetActorRightVector()*Direction.X) ;
+	
+}
+
+void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
+{
+	FVector2d CameraRotation = InputValue.Get<FVector2d>();
+	AddControllerPitchInput(CameraRotation.Y * -1 * CameraRotationRate);
+	AddControllerYawInput(CameraRotation.X * CameraRotationRate);
+}
+
+void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
+{
+	bool Jumped = InputValue.Get<bool>();
+	if (Jumped)
+	{
+		Jump();
+	}
+}
+
+
+
+
+
+// Dash 
+void APlayer_1::PlayerDash(const FInputActionValue& InputValue)
+{
+	bool Dashed = InputValue.Get<bool>();
+	bool PlayerIsFalling = GetCharacterMovement()->IsFalling() ;
+	
+	if (Dashed && Dashed_1 == false && PlayerIsFalling )
+	{
+		PlayerCharacterMovementComponent ->GravityScale = 0 ;
+		
+		FRotator direction = GetActorRotation() ;
+		direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
+		PlayerVelocityForDash = direction.Vector() ; 
+		LaunchCharacter(PlayerVelocityForDash*(DashDistance / 4), true , true );
+		Dashed_1 = true ;
+		FTimerHandle DashTimer ;
+		FTimerHandle DashFalling ;
+		GetWorldTimerManager().SetTimer(DashFalling , this , &APlayer_1::TurnOnGravityForDash  , 0.3 , false ) ;	
+		GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
+	}
+	if (Dashed && Dashed_1 == false && PlayerIsFalling == false )
+	{
+		
+		FRotator direction = GetActorRotation() ;
+		direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
+		PlayerVelocityForDash = direction.Vector() ; 
+		LaunchCharacter(PlayerVelocityForDash*DashDistance , true , true );
+		Dashed_1 = true ;
+		FTimerHandle DashTimer ;
+		GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
+	}
+}
+
+void APlayer_1::TurnOnGravityForDash()
+{
+	PlayerCharacterMovementComponent -> GravityScale = 1 ;
+	float PlayerVelocityAmount = PlayerCharacterMovementComponent->GetLastUpdateVelocity().Size();
+	
+	if (PlayerVelocityAmount > MinSpeedAmountToStopDashing)
+	{
+		PlayerCharacterMovementComponent->AddForce(PlayerVelocityForDash*ForceToStopPlayerDashing*-1) ;		
+	}
+	
+}
+
+void APlayer_1::DashDelay()
+{
+	Dashed_1 = false ;
+}
+
+void APlayer_1::calculateExtraRotationAmount()
+{
+
+	if (Direction.X== 0 && Direction.Y==1)
 	{
 		ExtraRotationAmount_1 = 0 ;
 	}
@@ -92,77 +180,5 @@ void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 	if (Direction.X == -1 && Direction.Y==1)
 	{
 		ExtraRotationAmount_1 = 315 ;
-	}
-
-	
-	AddMovementInput(GetActorForwardVector()*Direction.Y);
-	AddMovementInput(GetActorRightVector()*Direction.X) ;
-	
-}
-void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
-{
-	FVector2d CameraRotation = InputValue.Get<FVector2d>();
-	AddControllerPitchInput(CameraRotation.Y * -1 * CameraRotationRate);
-	AddControllerYawInput(CameraRotation.X * CameraRotationRate);
-}
-void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
-{
-	bool Jumped = InputValue.Get<bool>();
-	if (Jumped)
-	{
-		Jump();
-	}
-}
-
-
-void APlayer_1::PlayerDash(const FInputActionValue& InputValue)
-{
-	bool Dashed = InputValue.Get<bool>();
-	bool PlayerIsFalling = GetCharacterMovement()->IsFalling() ;
-	
-	if (Dashed && Dashed_1 == false && PlayerIsFalling )
-	{
-		PlayerCharacterMovementComponent ->GravityScale = 0 ;
-		
-		FRotator direction = GetActorRotation() ;
-		direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
-		PlayerVelocityForDash = direction.Vector() ; 
-		LaunchCharacter(PlayerVelocityForDash*(DashDistance / 4), true , true );
-		Dashed_1 = true ;
-		FTimerHandle DashTimer ;
-		FTimerHandle DashFalling ;
-		GetWorldTimerManager().SetTimer(DashFalling , this , &APlayer_1::TurnOnGravityForDash  , 0.3 , false ) ;	
-		GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
-		
-		
-	}
-	if (Dashed && Dashed_1 == false && PlayerIsFalling == false )
-	{
-		
-		FRotator direction = GetActorRotation() ;
-		direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
-		PlayerVelocityForDash = direction.Vector() ; 
-		LaunchCharacter(PlayerVelocityForDash*DashDistance , true , true );
-		Dashed_1 = true ;
-		FTimerHandle DashTimer ;
-		GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
-		
-		
-	}
-}
-void APlayer_1::TurnOnGravityForDash()
-{
-	PlayerCharacterMovementComponent -> GravityScale = 1 ;
-	float PlayerVelocityAmount = PlayerCharacterMovementComponent->GetLastUpdateVelocity().Size();
-	if (PlayerVelocityAmount > MinSpeedAmountToStopDashing)
-	{
-		PlayerCharacterMovementComponent->AddForce(PlayerVelocityForDash*ForceToStopPlayerDashing*-1) ;		
-	}
-	
-}
-
-
-void APlayer_1::DashDelay()
-{
-	Dashed_1 = false ;
+	}	
 }

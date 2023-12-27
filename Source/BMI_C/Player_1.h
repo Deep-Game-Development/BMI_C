@@ -52,23 +52,14 @@ private:
 	void PlayerDash (const FInputActionValue& InputValue) ;
 	void DashDelay ();
 	void TurnOnGravityForDash() ;
-	//Computer Controller
-	//void MoveForward(float AxisValue);
-	//void LookUp(float CameraRotation);
-	//void MoveRight(float AxisValue);
-	//void LookRight(float CameraRotation);
-	//void JumpAction();
-
-	//Gamepad Controller
-	//void LookUpController(float CameraRotation);
-	//void LookRightController(float CameraRotation); 
+	void calculateExtraRotationAmount () ;	
 
 	UCharacterMovementComponent*PlayerCharacterMovementComponent ;
 
 	// Move Variables :
 	UPROPERTY(EditAnywhere , Category="Movement")
 	float CameraRotationRate = 10.0 ;
-
+	
 	UPROPERTY(EditAnywhere , Category="Movement")
 	float DashDistance = 6000 ;
 
@@ -76,7 +67,9 @@ private:
 	float ForceToStopPlayerDashing  = 10 ;
 		
 	UPROPERTY(EditAnywhere , Category= "Movement")
-	float MinSpeedAmountToStopDashing = 150;
+	float MinSpeedAmountToStopDashing = 3000;
+
+
 	
 	float ExtraRotationAmount_1  ;
 
