@@ -39,6 +39,7 @@
 # Visual Studio 2015 user specific files
 .vs/
 .idea/
+.vscode/
 
 # Compiled Object files
 
@@ -113,3 +114,4 @@ Plugins/**/Intermediate/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unrealengine,c++
 1
+BMI_C.code-workspace
