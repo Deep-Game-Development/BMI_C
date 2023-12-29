@@ -115,3 +115,4 @@ Plugins/**/Intermediate/*
 # End of https://www.toptal.com/developers/gitignore/api/unrealengine,c++
 1
 BMI_C.code-workspace
+/Content/ParagonYin/
