@@ -42,6 +42,16 @@ void APlayer_1::BeginPlay()
 void APlayer_1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (IsRunning)
+	{
+		PlayerCharacterMovementComponent -> MaxWalkSpeed = RunSpeed;
+	}
+	else
+	{
+		PlayerCharacterMovementComponent -> MaxWalkSpeed = WalkSpeed;
+
+	}
+	
 
 }
 
@@ -55,10 +65,10 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(PlayerInputMove , ETriggerEvent::Triggered , this , &APlayer_1::PlayerMove) ;
 		EnhancedInputComponent->BindAction(PlayerInputLook , ETriggerEvent::Triggered , this , &APlayer_1::PlayerLook) ;
 		EnhancedInputComponent->BindAction(PlayerInputJump , ETriggerEvent::Triggered , this , &APlayer_1::PlayerJump) ;
+		
 		EnhancedInputComponent->BindAction(PlayerInputDash , ETriggerEvent::Triggered , this , &APlayer_1::PlayerDash ) ; 
 	}
 }
-
 
 
 
@@ -68,6 +78,15 @@ void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 {
 	
 	Direction = InputValue.Get<FVector2d>();
+	if(Direction.Y == 1)
+	{
+		IsGoingForward =  true ; 
+	}
+	else
+	{
+		IsGoingForward = false ;
+		IsRunning = false ;
+	}	
 	//to set extra rotation amount for dash 
 	calculateExtraRotationAmount() ;
 	// Sprint 
@@ -99,33 +118,40 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 // Dash 
 void APlayer_1::PlayerDash(const FInputActionValue& InputValue)
 {
-	bool Dashed = InputValue.Get<bool>();
-	bool PlayerIsFalling = GetCharacterMovement()->IsFalling() ;
-	
-	if (Dashed && Dashed_1 == false && PlayerIsFalling )
+	if(IsGoingForward)
 	{
-		PlayerCharacterMovementComponent ->GravityScale = 0 ;
-		
-		FRotator direction = GetActorRotation() ;
-		direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
-		PlayerVelocityForDash = direction.Vector() ; 
-		LaunchCharacter(PlayerVelocityForDash*(DashDistance / 4), true , true );
-		Dashed_1 = true ;
-		FTimerHandle DashTimer ;
-		FTimerHandle DashFalling ;
-		GetWorldTimerManager().SetTimer(DashFalling , this , &APlayer_1::TurnOnGravityForDash  , 0.3 , false ) ;	
-		GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
+		IsRunning = true ;
 	}
-	if (Dashed && Dashed_1 == false && PlayerIsFalling == false )
+	else
 	{
+		bool Dashed = InputValue.Get<bool>();
+		bool PlayerIsFalling = GetCharacterMovement()->IsFalling() ;
+	
+		if (Dashed && Dashed_1 == false && PlayerIsFalling && IsGoingForward==false )
+		{
+			PlayerCharacterMovementComponent ->GravityScale = 0 ;
 		
-		FRotator direction = GetActorRotation() ;
-		direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
-		PlayerVelocityForDash = direction.Vector() ; 
-		LaunchCharacter(PlayerVelocityForDash*DashDistance , true , true );
-		Dashed_1 = true ;
-		FTimerHandle DashTimer ;
-		GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
+			FRotator direction = GetActorRotation() ;
+			direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
+			PlayerVelocityForDash = direction.Vector() ; 
+			LaunchCharacter(PlayerVelocityForDash*(DashDistance / 4), true , true );
+			Dashed_1 = true ;
+			FTimerHandle DashTimer ;
+			FTimerHandle DashFalling ;
+			GetWorldTimerManager().SetTimer(DashFalling , this , &APlayer_1::TurnOnGravityForDash  , 0.3 , false ) ;	
+			GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
+		}
+		if (Dashed && Dashed_1 == false && PlayerIsFalling == false && IsGoingForward == false  )
+		{
+		
+			FRotator direction = GetActorRotation() ;
+			direction.Yaw = direction.Yaw + ExtraRotationAmount_1 ;
+			PlayerVelocityForDash = direction.Vector() ; 
+			LaunchCharacter(PlayerVelocityForDash*DashDistance , true , true );
+			Dashed_1 = true ;
+			FTimerHandle DashTimer ;
+			GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
+		}
 	}
 }
 
@@ -138,7 +164,7 @@ void APlayer_1::TurnOnGravityForDash()
 	{
 		PlayerCharacterMovementComponent->AddForce(PlayerVelocityForDash*ForceToStopPlayerDashing*-1) ;		
 	}
-	
+
 }
 
 void APlayer_1::DashDelay()
@@ -180,5 +206,7 @@ void APlayer_1::calculateExtraRotationAmount()
 	if (Direction.X == -1 && Direction.Y==1)
 	{
 		ExtraRotationAmount_1 = 315 ;
-	}	
+	}
+	
+	
 }

@@ -37,6 +37,9 @@ protected:
 
 	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
 	UInputAction* PlayerInputDash ;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category=Input )
+	UInputAction* PlayerInputPressedF ; 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -52,7 +55,10 @@ private:
 	void PlayerDash (const FInputActionValue& InputValue) ;
 	void DashDelay ();
 	void TurnOnGravityForDash() ;
-	void calculateExtraRotationAmount () ;	
+	void calculateExtraRotationAmount () ;
+
+
+	
 
 	UCharacterMovementComponent*PlayerCharacterMovementComponent ;
 
@@ -68,8 +74,16 @@ private:
 		
 	UPROPERTY(EditAnywhere , Category= "Movement")
 	float MinSpeedAmountToStopDashing = 3000;
+	
+	UPROPERTY(EditAnywhere , Category= "Movement")
+	float RunSpeed = 700;
 
+	UPROPERTY(EditAnywhere , Category= "Movement")
+	float WalkSpeed = 450;	
 
+	bool IsGoingForward = false   ;
+
+	bool IsRunning ; 
 	
 	float ExtraRotationAmount_1  ;
 
