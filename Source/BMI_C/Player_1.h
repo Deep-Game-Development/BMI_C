@@ -47,6 +47,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(BlueprintReadOnly)
+	bool IsRunning ;
+
+	UPROPERTY(BlueprintReadOnly)
+	float DirectionX ;
+	UPROPERTY(BlueprintReadOnly)
+	float DirectionY ;
 private:
 	//Move Functions :
 	void PlayerMove (const FInputActionValue& InputValue) ;
@@ -82,17 +89,18 @@ private:
 	float WalkSpeed = 450;	
 
 	bool IsGoingForward = false   ;
-
-	bool IsRunning ; 
+	
 	
 	float ExtraRotationAmount_1  ;
 
 	FVector PlayerVelocityForDash ;
-	
+		
 	FVector2d Direction ;
+
 
 	bool Dashed_1 = false ;
 
+	
 		
 
 };

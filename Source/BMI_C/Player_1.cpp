@@ -78,6 +78,8 @@ void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 {
 	
 	Direction = InputValue.Get<FVector2d>();
+	DirectionX = Direction.X ;
+	DirectionY = Direction.Y ;
 	if(Direction.Y == 1)
 	{
 		IsGoingForward =  true ; 
