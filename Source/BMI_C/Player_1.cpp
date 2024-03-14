@@ -110,6 +110,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 	if (Jumped)
 	{
 		Jump();
+		
 	}
 }
 
