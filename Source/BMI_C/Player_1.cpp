@@ -41,7 +41,7 @@ void APlayer_1::BeginPlay()
 // Called every frame
 void APlayer_1::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime); 
 	if (IsRunning)
 	{
 		PlayerCharacterMovementComponent -> MaxWalkSpeed = RunSpeed;
@@ -64,13 +64,18 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		//Binding sprint actions 
 		EnhancedInputComponent->BindAction(PlayerInputMove , ETriggerEvent::Triggered , this , &APlayer_1::PlayerMove) ;
 		EnhancedInputComponent->BindAction(PlayerInputLook , ETriggerEvent::Triggered , this , &APlayer_1::PlayerLook) ;
-		EnhancedInputComponent->BindAction(PlayerInputJump , ETriggerEvent::Triggered , this , &APlayer_1::PlayerJump) ;
+		EnhancedInputComponent->BindAction(PlayerInputJump , ETriggerEvent::Started , this , &APlayer_1::PlayerJump) ;
 		
 		EnhancedInputComponent->BindAction(PlayerInputDash , ETriggerEvent::Triggered , this , &APlayer_1::PlayerDash ) ; 
 	}
 }
 
-
+void APlayer_1::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	FirstJump = true;
+	Jumps = 0 ; 
+}
 
 
 // Sprint 
@@ -109,8 +114,20 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 	bool Jumped = InputValue.Get<bool>();
 	if (Jumped)
 	{
-		Jump();
-		
+		if (FirstJump)
+		{
+			Jump() ;
+			FirstJump = false;
+			Jumps ++ ;
+		}
+		else
+		{
+			if (Jumps == 1)
+			{
+				LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+				Jumps ++ ;
+			}
+		}
 	}
 }
 

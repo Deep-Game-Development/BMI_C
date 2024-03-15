@@ -47,9 +47,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual void Landed(const FHitResult& Hit) override;
+	
 	UPROPERTY(BlueprintReadOnly)
 	bool IsRunning ;
-
 	UPROPERTY(BlueprintReadOnly)
 	float DirectionX ;
 	UPROPERTY(BlueprintReadOnly)
@@ -97,9 +98,13 @@ private:
 		
 	FVector2d Direction ;
 
-
 	bool Dashed_1 = false ;
 
+	bool FirstJump = true ;
+
+	int Jumps = 0 ; 
+	UPROPERTY(EditAnywhere , Category="Movement") 
+	float SecondJumpZvelocity  = 400.0f ;
 	
 		
 
