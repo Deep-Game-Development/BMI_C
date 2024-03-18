@@ -105,7 +105,8 @@ private:
 	int Jumps = 0 ; 
 	UPROPERTY(EditAnywhere , Category="Movement") 
 	float SecondJumpZvelocity  = 400.0f ;
-	
+
+	float PlayerVelocity ; 
 		
 
 };

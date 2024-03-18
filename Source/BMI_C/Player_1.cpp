@@ -93,7 +93,12 @@ void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 	{
 		IsGoingForward = false ;
 		IsRunning = false ;
-	}	
+	}
+	PlayerVelocity = PlayerCharacterMovementComponent -> GetLastUpdateVelocity().Size() ;
+	if (PlayerVelocity == 0 )
+	{
+		IsRunning = false ; 
+	}
 	//to set extra rotation amount for dash 
 	calculateExtraRotationAmount() ;
 	// Sprint 
