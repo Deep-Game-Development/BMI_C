@@ -16,6 +16,10 @@ class UCamera : public UCameraComponent
 
 protected:
 	virtual void BeginPlay();
+
+	//Camera Shake Types
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> ShootShake;
 	
 	//Camera Shake Func
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
