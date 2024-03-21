@@ -17,4 +17,8 @@ class UCamera : public UCameraComponent
 protected:
 	virtual void BeginPlay();
 	
+	//Camera Shake Func
+	UFUNCTION(BlueprintCallable, Category= "CameraShake")
+	void CameraShake(TSubclassOf<UCameraShakeBase> ShakeBase);
+	
 };

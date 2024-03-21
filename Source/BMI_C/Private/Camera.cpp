@@ -8,3 +8,10 @@ void UCamera::BeginPlay()
 	Super::BeginPlay();
 
 }
+
+
+void UCamera::CameraShake(TSubclassOf<UCameraShakeBase> ShakeBase)
+{
+	GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(ShakeBase);
+}
+
