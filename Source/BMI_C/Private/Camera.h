@@ -6,6 +6,14 @@
 #include "Camera/CameraComponent.h"
 #include "Camera.generated.h"
 
+//Define a Enum for different types of Shakes
+UENUM(BlueprintType)
+enum class ECameraShake : uint8
+{
+	Shooting,
+	Other,
+};
+
 /**
  * 
  */
@@ -16,13 +24,13 @@ class UCamera : public UCameraComponent
 
 protected:
 	virtual void BeginPlay();
-
-	//Camera Shake Types
+	
+	//Reference Camera Shake Types
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> ShootShake;
 	
-	//Camera Shake Func
+	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
-	void CameraShake(TSubclassOf<UCameraShakeBase> ShakeBase);
+	void CameraShake(ECameraShake CameraShakeEnum);
 	
 };

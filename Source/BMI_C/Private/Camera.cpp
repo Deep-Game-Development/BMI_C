@@ -10,8 +10,25 @@ void UCamera::BeginPlay()
 }
 
 
-void UCamera::CameraShake(TSubclassOf<UCameraShakeBase> ShakeBase)
+void UCamera::CameraShake(ECameraShake CameraShakeEnum)
 {
-	GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(ShakeBase);
-}
+	//Define a Value for Selected Enum Option
+	TSubclassOf<UCameraShakeBase> SelectedCameraShake;
 
+	//Switch on CameraShakeEnum
+	switch (CameraShakeEnum)
+	{
+	case ECameraShake::Shooting:
+		SelectedCameraShake = ShootShake;
+		break;
+	case ECameraShake::Other:
+		break;
+	}
+
+	//Check SelectedCameraShake in not null
+	if (SelectedCameraShake)
+	{
+		//Shake camera with selected shake option
+		GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake);
+	}
+}
