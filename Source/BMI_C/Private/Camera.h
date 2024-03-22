@@ -11,7 +11,12 @@ UENUM(BlueprintType)
 enum class ECameraShake : uint8
 {
 	Shooting,
-	Other,
+	Running,
+	Jumping,
+	Dashing,
+	Climbing,
+	Idling,
+	
 };
 
 /**
@@ -28,6 +33,21 @@ protected:
 	//Reference Camera Shake Types
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> ShootShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> RunningShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> JumpingShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> DashingShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> ClimbingShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> IdlingShake;
 	
 	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
