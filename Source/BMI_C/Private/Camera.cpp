@@ -10,13 +10,13 @@ void UCamera::BeginPlay()
 }
 
 
-void UCamera::CameraShake(ECameraShake CameraShakeEnum)
+void UCamera::CameraShake(ECameraShake ShakeType)
 {
 	//Define a Value for Selected Enum Option
 	TSubclassOf<UCameraShakeBase> SelectedCameraShake;
 
 	//Switch on CameraShakeEnum
-	switch (CameraShakeEnum)
+	switch (ShakeType)
 	{
 	case ECameraShake::Shooting:
 		SelectedCameraShake = ShootShake;

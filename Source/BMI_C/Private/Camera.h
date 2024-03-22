@@ -31,6 +31,6 @@ protected:
 	
 	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
-	void CameraShake(ECameraShake CameraShakeEnum);
+	void CameraShake(ECameraShake ShakeType);
 	
 };
