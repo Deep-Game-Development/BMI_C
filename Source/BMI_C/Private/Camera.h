@@ -12,6 +12,7 @@ enum class ECameraShake : uint8
 {
 	Shooting,
 	Running,
+	StartRunning,
 	Jumping,
 	Falling,
 	Landing,
@@ -39,6 +40,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> RunningShake;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> StartRunning;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> JumpingShake;
 
