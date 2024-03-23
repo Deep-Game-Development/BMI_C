@@ -27,6 +27,12 @@ void UCamera::CameraShake(ECameraShake ShakeType)
 	case ECameraShake::Jumping:
 		SelectedCameraShake = JumpingShake;
 		break;
+	case ECameraShake::Falling:
+		SelectedCameraShake = FallingShake;
+		break;
+	case ECameraShake::Landing:
+		SelectedCameraShake = LandingShake;
+		break;
 	case ECameraShake::Dashing:
 		SelectedCameraShake = DashingShake;
 		break;

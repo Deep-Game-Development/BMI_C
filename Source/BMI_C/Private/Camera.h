@@ -13,6 +13,8 @@ enum class ECameraShake : uint8
 	Shooting,
 	Running,
 	Jumping,
+	Falling,
+	Landing,
 	Dashing,
 	Climbing,
 	Idling,
@@ -39,6 +41,12 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> JumpingShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> FallingShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> LandingShake;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> DashingShake;
