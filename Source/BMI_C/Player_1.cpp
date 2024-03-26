@@ -147,7 +147,7 @@ void APlayer_1::PlayerDash(const FInputActionValue& InputValue)
 	{
 		IsRunning = true ;
 	}
-	else
+	/*else
 	{
 		bool Dashed = InputValue.Get<bool>();
 		bool PlayerIsFalling = GetCharacterMovement()->IsFalling() ;
@@ -177,7 +177,7 @@ void APlayer_1::PlayerDash(const FInputActionValue& InputValue)
 			FTimerHandle DashTimer ;
 			GetWorldTimerManager().SetTimer(DashTimer , this , &APlayer_1::DashDelay  , 1.0f , false ) ;
 		}
-	}
+	}*/
 }
 
 void APlayer_1::TurnOnGravityForDash()
