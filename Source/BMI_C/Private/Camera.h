@@ -64,5 +64,12 @@ protected:
 	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
 	void CameraShake(ECameraShake ShakeType);
+
+	//Scale of Camera Shakes
+	double ShakeScale = 1;
+
+	//Calculate Velocity Function
+	UFUNCTION(BlueprintCallable, Category= "CameraShake")
+	void CalculateVelocity();
 	
 };

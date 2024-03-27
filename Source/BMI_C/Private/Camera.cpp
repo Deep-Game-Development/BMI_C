@@ -2,11 +2,11 @@
 
 
 #include "Camera.h"
+#include "GameFramework/Character.h"
 
 void UCamera::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 
@@ -51,6 +51,27 @@ void UCamera::CameraShake(ECameraShake ShakeType)
 	if (SelectedCameraShake)
 	{
 		//Shake camera with selected shake option
-		GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake);
+		GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, ShakeScale);
 	}
+	
+	//Check if ShakeType is Landing
+	if (ShakeType == ECameraShake::Landing)
+	{
+		//Reset ShakeScale Value
+		ShakeScale = 1;
+	}
+}
+
+void UCamera::CalculateVelocity()
+{
+	//Define Variables for Formula
+	const float LandingVelocity = GetOwner()->GetVelocity().Z * -1;
+	const float JumpVelocity = Cast<ACharacter>(GetOwner()->GetInstigator())->GetCharacterMovement()->JumpZVelocity;
+	const float VelocityDifference = (LandingVelocity - JumpVelocity);
+	constexpr  float DefaultShake = 1;
+	constexpr  float BoostVelocityRange = 1.5;
+	constexpr  float MinShake = 0.2;
+
+	//Calculate Formula
+	ShakeScale = FMath().Max(MinShake, DefaultShake + ((VelocityDifference * BoostVelocityRange) / JumpVelocity));
 }
