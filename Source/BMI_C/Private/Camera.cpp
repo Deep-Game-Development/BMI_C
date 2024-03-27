@@ -3,12 +3,7 @@
 
 #include "Camera.h"
 #include "GameFramework/Character.h"
-
-void UCamera::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
+#include "GameFramework/CharacterMovementComponent.h"
 
 void UCamera::CameraShake(ECameraShake ShakeType)
 {
@@ -35,12 +30,6 @@ void UCamera::CameraShake(ECameraShake ShakeType)
 		break;
 	case ECameraShake::Landing:
 		SelectedCameraShake = LandingShake;
-		break;
-	case ECameraShake::Dashing:
-		SelectedCameraShake = DashingShake;
-		break;
-	case ECameraShake::Climbing:
-		SelectedCameraShake = ClimbingShake;
 		break;
 	case ECameraShake::Idling:
 		SelectedCameraShake = IdlingShake;
