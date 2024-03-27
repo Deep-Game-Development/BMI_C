@@ -19,46 +19,35 @@ enum class ECameraShake : uint8
 	Dashing,
 	Climbing,
 	Idling,
-	
 };
 
-/**
- * 
- */
 UCLASS()
 class UCamera : public UCameraComponent
 {
 	GENERATED_BODY()
 
-protected:
-	virtual void BeginPlay();
+private:
 	
 	//Reference Camera Shake Types
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> ShootShake;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> RunningShake;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> StartRunning;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> JumpingShake;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> FallingShake;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> LandingShake;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
-	TSubclassOf<UCameraShakeBase> DashingShake;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
-	TSubclassOf<UCameraShakeBase> ClimbingShake;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> IdlingShake;
 	
 	//Camera Shake Function
