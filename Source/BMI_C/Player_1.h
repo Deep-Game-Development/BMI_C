@@ -107,6 +107,6 @@ private:
 	float SecondJumpZvelocity  = 400.0f ;
 
 	float PlayerVelocity ; 
-		
-
+	UPROPERTY(EditAnywhere , Category="Movement") 
+	float ExtraJumpAmountInRunning = 1.2 ; 
 };

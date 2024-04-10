@@ -126,22 +126,56 @@ void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
 void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 {
 	bool Jumped = InputValue.Get<bool>();
-	if (Jumped)
+	if (PlayerVelocity < 600)
 	{
-		if (FirstJump)
+		
+	
+		if (Jumped)
 		{
-			Jump() ;
-			FirstJump = false;
-			Jumps ++ ;
-		}
-		else
-		{
-			if (Jumps == 1)
+			if (FirstJump)
 			{
-				LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+				Jump() ;
+				FirstJump = false;
 				Jumps ++ ;
 			}
+			else
+			{
+				if (Jumps == 1)
+				{
+					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+					Jumps ++ ;
+				}
+			}
 		}
+	}
+	else
+	{
+		float Zvelocity =PlayerCharacterMovementComponent->JumpZVelocity ;
+		float SecondJumpZvelocity1 = SecondJumpZvelocity ;
+		if (IsRunning)
+		{
+			PlayerCharacterMovementComponent->JumpZVelocity = PlayerCharacterMovementComponent ->JumpZVelocity * ExtraJumpAmountInRunning ;
+			SecondJumpZvelocity = SecondJumpZvelocity * ExtraJumpAmountInRunning ;
+		}
+		if (Jumped)
+		{
+			if (FirstJump)
+			{
+				Jump() ;
+				FirstJump = false;
+				Jumps ++ ;
+			}
+			else
+			{
+				if (Jumps == 1)
+				{
+					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+					Jumps ++ ;
+				}
+			}
+		}
+		PlayerCharacterMovementComponent->JumpZVelocity = Zvelocity ;
+		SecondJumpZvelocity = SecondJumpZvelocity1 ;	
 	}
 }
 
