@@ -103,7 +103,7 @@ void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 		IsRunning = false ; 
 	}
 	
-	//to set extra rotation amount for dash 
+	//to set extra rotation amount for dash :
 	calculateExtraRotationAmount() ;
 	
 	// Walk function 
@@ -126,12 +126,14 @@ void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
 void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 {
 	bool Jumped = InputValue.Get<bool>();
+	// Check if player velocity is more than 600 for extra jump height 
 	if (PlayerVelocity < 600)
 	{
 		
 	
 		if (Jumped)
 		{
+			// Check if its first jump for double jump
 			if (FirstJump)
 			{
 				Jump() ;
@@ -140,6 +142,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 			}
 			else
 			{
+				// check the second jump 
 				if (Jumps == 1)
 				{
 					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
@@ -150,6 +153,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 	}
 	else
 	{
+		// Setting extra amount of jump 
 		float Zvelocity =PlayerCharacterMovementComponent->JumpZVelocity ;
 		float SecondJumpZvelocity1 = SecondJumpZvelocity ;
 		if (IsRunning)
@@ -257,7 +261,7 @@ void APlayer_1::DashDelay()
 
 
 
-// Calculating the way of moving of the player from WASD to apply extra amount of applying movement 
+// Calculating the way of moving of the player from WASD to apply extra amount of applying movement :  the Player  look at some where and go to another way . to undrestand in wich dirextion does it goinig we need to know where does he look at to and the direction toward where does he look at to .  
 void APlayer_1::calculateExtraRotationAmount()
 {
 
