@@ -40,7 +40,7 @@ void UCamera::CameraShake(ECameraShake ShakeType)
 	if (SelectedCameraShake)
 	{
 		//Shake camera with selected shake option
-		GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, ShakeScale, ECameraShakePlaySpace::World);
+		GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, ShakeScale);
 	}
 	
 	//Check if ShakeType is Landing
