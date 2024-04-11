@@ -169,6 +169,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 			{
 				if (Jumps == 1)
 				{
+					GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(DoubleJumpShake);
 					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
 					Jumps ++ ;
 				}

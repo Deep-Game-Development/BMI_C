@@ -108,5 +108,8 @@ private:
 
 	float PlayerVelocity ; 
 	UPROPERTY(EditAnywhere , Category="Movement") 
-	float ExtraJumpAmountInRunning = 1.2 ; 
+	float ExtraJumpAmountInRunning = 1.2 ;
+
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> DoubleJumpShake;
 };
