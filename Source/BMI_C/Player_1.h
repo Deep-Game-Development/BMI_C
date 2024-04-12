@@ -116,5 +116,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
 	UAnimMontage* DoubleJumpMontage;
 
-	void PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage) const;
+	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
+	USoundBase* DoubleJumpSound;
+
+	void PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage, USoundBase* SoundBase) const;
 };
