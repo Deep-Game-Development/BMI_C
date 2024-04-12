@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "DSP/IntegerDelay.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Physics/ImmediatePhysics/ImmediatePhysicsShared/ImmediatePhysicsCore.h"
 // Sets default values
 
@@ -142,6 +143,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 			{
 				if (Jumps == 1)
 				{
+					PlayDoubleJumpVisuals(DoubleJumpShake, DoubleJumpMontage, DoubleJumpSound);
 					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
 					Jumps ++ ;
 				}
@@ -169,6 +171,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 			{
 				if (Jumps == 1)
 				{
+					PlayDoubleJumpVisuals(DoubleJumpShake, DoubleJumpMontage, DoubleJumpSound);
 					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
 					Jumps ++ ;
 				}
@@ -293,7 +296,11 @@ void APlayer_1::calculateExtraRotationAmount()
 	{
 		ExtraRotationAmount_1 = 315 ;
 	}
-	
-	
 }
 
+void APlayer_1::PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage, USoundBase* SoundBase) const
+{
+	GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(Shake);
+	GetMesh()->GetAnimInstance()->Montage_Play(AnimMontage);
+	UGameplayStatics::PlaySound2D(this, SoundBase);
+}
