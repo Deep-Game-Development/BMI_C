@@ -110,6 +110,11 @@ private:
 	UPROPERTY(EditAnywhere , Category="Movement") 
 	float ExtraJumpAmountInRunning = 1.2 ;
 
-	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
+	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
 	TSubclassOf<UCameraShakeBase> DoubleJumpShake;
+	
+	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
+	UAnimMontage* DoubleJumpMontage;
+
+	void PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage) const;
 };

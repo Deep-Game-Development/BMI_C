@@ -142,6 +142,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 			{
 				if (Jumps == 1)
 				{
+					PlayDoubleJumpVisuals(DoubleJumpShake, DoubleJumpMontage);
 					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
 					Jumps ++ ;
 				}
@@ -169,7 +170,7 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 			{
 				if (Jumps == 1)
 				{
-					GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(DoubleJumpShake);
+					PlayDoubleJumpVisuals(DoubleJumpShake, DoubleJumpMontage);
 					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
 					Jumps ++ ;
 				}
@@ -294,7 +295,10 @@ void APlayer_1::calculateExtraRotationAmount()
 	{
 		ExtraRotationAmount_1 = 315 ;
 	}
-	
-	
 }
 
+void APlayer_1::PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage) const
+{
+	GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(Shake);
+	GetMesh()->GetAnimInstance()->Montage_Play(AnimMontage);
+}
