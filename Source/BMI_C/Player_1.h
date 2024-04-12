@@ -39,7 +39,14 @@ protected:
 	UInputAction* PlayerInputDash ;
 
 	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category=Input )
-	UInputAction* PlayerInputPressedF ; 
+	UInputAction* PlayerInputPressedF ;
+	
+	UPROPERTY(BlueprintReadOnly, Category="TurnInPlace")
+	bool TurnRight;
+	
+	UPROPERTY(BlueprintReadOnly, Category="TurnInPlace")
+	bool TurnLeft;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -120,4 +127,12 @@ private:
 	USoundBase* DoubleJumpSound;
 
 	void PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage, USoundBase* SoundBase) const;
+
+	//Turn In Place Function, have Camera X Axis parameter
+	void TurnInPlace(float TurnAxis);
+
+	//the sensitivity of Turn In Place
+	UPROPERTY(EditDefaultsOnly, Category="TurnInPlace")
+	float TurnInPlaceSensitivity = 0.3;
+
 };

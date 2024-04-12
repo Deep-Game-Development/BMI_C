@@ -119,6 +119,9 @@ void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
 	FVector2d CameraRotation = InputValue.Get<FVector2d>();
 	AddControllerPitchInput(CameraRotation.Y * -1 * CameraRotationRate);
 	AddControllerYawInput(CameraRotation.X * CameraRotationRate);
+
+	//Call Turn In Place Func
+	TurnInPlace(CameraRotation.X);
 }
 
 
@@ -303,4 +306,36 @@ void APlayer_1::PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnim
 	GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(Shake);
 	GetMesh()->GetAnimInstance()->Montage_Play(AnimMontage);
 	UGameplayStatics::PlaySound2D(this, SoundBase);
+}
+
+void APlayer_1::TurnInPlace(float TurnAxis)
+{
+	//Check Turn Right or Left?
+	if (GetVelocity().Length() == 0)
+	{
+		if (TurnAxis > TurnInPlaceSensitivity)
+		{
+			TurnRight = true;
+			TurnLeft = false;
+		}
+		if (TurnAxis <= TurnInPlaceSensitivity)
+		{
+			TurnRight = false;
+		}
+		if (TurnAxis < -TurnInPlaceSensitivity)
+		{
+			TurnRight = false;
+			TurnLeft = true;
+		}
+		if (TurnAxis >= -TurnInPlaceSensitivity)
+		{
+			TurnLeft = false;
+		}
+	}
+	//if dont turn right or left make variables false
+	else
+	{
+		TurnRight = false;
+		TurnLeft = false;
+	}
 }
