@@ -39,6 +39,7 @@
 # Visual Studio 2015 user specific files
 .vs/
 .idea/
+.vscode/
 
 # Compiled Object files
 
@@ -115,4 +116,4 @@ Plugins/**/Intermediate/*
 1
 /Content/ParagonYin/
 /BMI_C/Content/ParagonYin/
-
+Makefile

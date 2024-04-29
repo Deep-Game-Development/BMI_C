@@ -1,0 +1,865 @@
+{
+	"folders": [
+		{
+			"name": "BMI_C",
+			"path": "."
+		},
+		{
+			"name": "UE5",
+			"path": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off",
+		"npm.autoDetect": "off"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp"
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "BMI_C Linux Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C Linux Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C Linux DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C Linux Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Test Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Test",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Test Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Test",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C Linux Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Test Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Test",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Shipping Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Shipping",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Shipping Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Shipping",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C Linux Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C Linux Shipping Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"Linux",
+					"Shipping",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C LinuxArm64 Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C LinuxArm64 DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C LinuxArm64 Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Test Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Test",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Test Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Test",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C LinuxArm64 Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Test Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Test",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Shipping Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Shipping",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Shipping Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Shipping",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_C LinuxArm64 Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_C LinuxArm64 Shipping Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_C",
+					"LinuxArm64",
+					"Shipping",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_CEditor Linux Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"Debug",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_CEditor Linux DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"DebugGame",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"BMI_CEditor Linux Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			},
+			{
+				"label": "BMI_CEditor Linux Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"BMI_CEditor",
+					"Linux",
+					"Development",
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+				}
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch BMI_C (Debug)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/Binaries/Linux/UnrealGame-Linux-Debug",
+				"preLaunchTask": "BMI_C Linux Debug Build",
+				"args": [
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_C (DebugGame)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/Binaries/Linux/UnrealGame-Linux-DebugGame",
+				"preLaunchTask": "BMI_C Linux DebugGame Build",
+				"args": [
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_C (Development)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/Binaries/Linux/UnrealGame",
+				"preLaunchTask": "BMI_C Linux Development Build",
+				"args": [
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_C (Test)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/Binaries/Linux/UnrealGame-Linux-Test",
+				"preLaunchTask": "BMI_C Linux Test Build",
+				"args": [
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_C (Shipping)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/Binaries/Linux/UnrealGame-Linux-Shipping",
+				"preLaunchTask": "BMI_C Linux Shipping Build",
+				"args": [
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_CEditor (Debug)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
+				"preLaunchTask": "BMI_CEditor Linux Debug Build",
+				"args": [
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject"
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_CEditor (DebugGame)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
+				"preLaunchTask": "BMI_CEditor Linux DebugGame Build",
+				"args": [
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject"
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch BMI_CEditor (Development)",
+				"request": "launch",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Binaries/Linux/UnrealEditor",
+				"preLaunchTask": "BMI_CEditor Linux Development Build",
+				"args": [
+					"/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject"
+				],
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0",
+				"type": "cppdbg",
+				"visualizerFile": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Generate Project Files",
+				"type": "coreclr",
+				"request": "launch",
+				"preLaunchTask": "UnrealBuildTool Linux Development Build",
+				"program": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0/Engine/Build/BatchFiles/RunUBT.bat",
+				"args": [
+					"-projectfiles",
+					"-vscode",
+					"-project=/home/mahyar-86/UnrealEngine/Unreal Projects/BMI_C/BMI_C.uproject",
+					"-game",
+					"-engine",
+					"-dotnet"
+				],
+				"console": "internalConsole",
+				"internalConsoleOptions": "openOnSessionStart",
+				"stopAtEntry": false,
+				"cwd": "/home/mahyar-86/UnrealEngine/Linux_Unreal_Engine_5.4.0"
+			}
+		]
+	}
+}
