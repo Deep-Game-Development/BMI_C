@@ -50,10 +50,14 @@ private:
 	
 	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
-	void CameraShake(ECameraShake ShakeType);
+	void CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpace);
 
 	//Scale of Camera Shakes
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	double ShakeScale = 1;
+
+	//Scale of Landing Camera Shake
+	double LandingShakeScale = 1;
 
 	//Calculate Velocity Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")

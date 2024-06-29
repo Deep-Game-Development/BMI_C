@@ -1,11 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Camera.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-void UCamera::CameraShake(ECameraShake ShakeType)
+void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpace)
 {
 	//Define a Value for Selected Enum Option
 	TSubclassOf<UCameraShakeBase> SelectedCameraShake;
@@ -39,16 +36,20 @@ void UCamera::CameraShake(ECameraShake ShakeType)
 	//Check SelectedCameraShake in not null
 	if (SelectedCameraShake)
 	{
-		//Shake camera with selected shake option
-		GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, ShakeScale);
+		if (ShakeType == ECameraShake::Landing)
+		{
+			//Shake camera with selected shake option
+			GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, LandingShakeScale, PlaySpace);
+		}
+		else
+		{
+			//Shake camera with selected shake option
+			GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, ShakeScale, PlaySpace);
+		}
 	}
 	
-	//Check if ShakeType is Landing
-	if (ShakeType == ECameraShake::Landing)
-	{
-		//Reset ShakeScale Value
-		ShakeScale = 1;
-	}
+	//Reset LandingShakeScale Value
+	LandingShakeScale = 1;
 }
 
 void UCamera::CalculateVelocity()
@@ -62,5 +63,5 @@ void UCamera::CalculateVelocity()
 	constexpr  float MinShake = 0.2;
 
 	//Calculate Formula
-	ShakeScale = FMath().Max(MinShake, DefaultShake + ((VelocityDifference * BoostVelocityRange) / JumpVelocity));
+	LandingShakeScale = FMath().Max(MinShake, DefaultShake + ((VelocityDifference * BoostVelocityRange) / JumpVelocity));
 }
