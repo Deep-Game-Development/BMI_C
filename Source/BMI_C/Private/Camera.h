@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -17,6 +15,7 @@ enum class ECameraShake : uint8
 	Falling,
 	Landing,
 	Idling,
+	Walking,
 };
 
 UCLASS()
@@ -48,6 +47,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> IdlingShake;
 	
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> WalkingShake;
+
 	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
 	void CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpace);

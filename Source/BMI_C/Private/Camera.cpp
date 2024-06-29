@@ -1,6 +1,4 @@
 #include "Camera.h"
-#include "GameFramework/Character.h"
-#include "GameFramework/CharacterMovementComponent.h"
 
 void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpace)
 {
@@ -31,6 +29,9 @@ void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpac
 	case ECameraShake::Idling:
 		SelectedCameraShake = IdlingShake;
 		break;
+	case ECameraShake::Walking:
+		SelectedCameraShake = WalkingShake;
+		break;
 	}
 
 	//Check SelectedCameraShake in not null
@@ -40,7 +41,6 @@ void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpac
 		{
 			//Landing Shake with Specific Scale
 			GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, LandingShakeScale, PlaySpace);
-
 		}
 		else
 		{
