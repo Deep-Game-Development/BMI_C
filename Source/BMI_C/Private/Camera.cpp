@@ -38,8 +38,9 @@ void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpac
 	{
 		if (ShakeType == ECameraShake::Landing)
 		{
-			//Shake camera with selected shake option
+			//Landing Shake with Specific Scale
 			GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, LandingShakeScale, PlaySpace);
+
 		}
 		else
 		{
@@ -47,21 +48,18 @@ void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpac
 			GetOwner()->GetInstigator()->GetLocalViewingPlayerController()->PlayerCameraManager->StartCameraShake(SelectedCameraShake, ShakeScale, PlaySpace);
 		}
 	}
-	
-	//Reset LandingShakeScale Value
-	LandingShakeScale = 1;
 }
 
 void UCamera::CalculateVelocity()
 {
 	//Define Variables for Formula
 	const float LandingVelocity = GetOwner()->GetVelocity().Z * -1;
-	const float JumpVelocity = Cast<ACharacter>(GetOwner()->GetInstigator())->GetCharacterMovement()->JumpZVelocity;
-	const float VelocityDifference = (LandingVelocity - JumpVelocity);
-	constexpr  float DefaultShake = 1;
-	constexpr  float BoostVelocityRange = 1.5;
-	constexpr  float MinShake = 0.2;
+	constexpr float MinShake = 1;
+	constexpr float MaxShake = 4;
+	constexpr float Devide = 450;
 
-	//Calculate Formula
-	LandingShakeScale = FMath().Max(MinShake, DefaultShake + ((VelocityDifference * BoostVelocityRange) / JumpVelocity));
+	//Limit Scale to MinShake and MaxShake
+	const float Formula = FMath().Clamp(LandingVelocity / Devide, MinShake, MaxShake);
+	
+	LandingShakeScale = Formula;
 }

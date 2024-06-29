@@ -54,10 +54,10 @@ private:
 
 	//Scale of Camera Shakes
 	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
-	double ShakeScale = 1;
+	float ShakeScale = 1;
 
 	//Scale of Landing Camera Shake
-	double LandingShakeScale = 1;
+	float LandingShakeScale = 1;
 
 	//Calculate Velocity Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")
