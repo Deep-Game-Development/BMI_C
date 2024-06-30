@@ -16,6 +16,7 @@ enum class ECameraShake : uint8
 	Landing,
 	Idling,
 	Walking,
+	DoubleJumping,
 };
 
 UCLASS()
@@ -49,6 +50,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
 	TSubclassOf<UCameraShakeBase> WalkingShake;
+
+	UPROPERTY(EditDefaultsOnly, Category= "CameraShake")
+	TSubclassOf<UCameraShakeBase> DoubleJumpingShake;
 
 	//Camera Shake Function
 	UFUNCTION(BlueprintCallable, Category= "CameraShake")

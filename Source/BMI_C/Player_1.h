@@ -116,17 +116,9 @@ private:
 	float PlayerVelocity ; 
 	UPROPERTY(EditAnywhere , Category="Movement") 
 	float ExtraJumpAmountInRunning = 1.2 ;
-
-	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
-	TSubclassOf<UCameraShakeBase> DoubleJumpShake;
 	
 	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
 	UAnimMontage* DoubleJumpMontage;
-
-	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
-	USoundBase* DoubleJumpSound;
-
-	void PlayDoubleJumpVisuals(TSubclassOf<UCameraShakeBase> Shake, UAnimMontage* AnimMontage, USoundBase* SoundBase) const;
 
 	//Turn In Place Function, have Camera X Axis parameter
 	void TurnInPlace(float TurnAxis);

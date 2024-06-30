@@ -32,6 +32,9 @@ void UCamera::CameraShake(ECameraShake ShakeType, ECameraShakePlaySpace PlaySpac
 	case ECameraShake::Walking:
 		SelectedCameraShake = WalkingShake;
 		break;
+	case ECameraShake::DoubleJumping:
+		SelectedCameraShake = DoubleJumpingShake;
+		break;
 	}
 
 	//Check SelectedCameraShake in not null
