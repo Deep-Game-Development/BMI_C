@@ -46,6 +46,10 @@ protected:
 	
 	UPROPERTY(BlueprintReadOnly, Category="TurnInPlace")
 	bool TurnLeft;
+
+	//Attack input
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = Input)
+	UInputAction* PlayerInputSwordAttack;
 	
 public:	
 	// Called every frame
@@ -119,6 +123,7 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category= "DoubleJump")
 	UAnimMontage* DoubleJumpMontage;
+	bool CanMove = true;
 
 	//Turn In Place Function, have Camera X Axis parameter
 	void TurnInPlace(float TurnAxis);
@@ -127,4 +132,45 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="TurnInPlace")
 	float TurnInPlaceSensitivity = 0.3;
 
+	// AttackVariables
+public:
+	UPROPERTY(BlueprintReadWrite)
+	bool IfCanAttack = true ;
+
+	UPROPERTY(BlueprintReadOnly);
+	int AttackIndex = 0; 
+
+private:
+	bool PlayerIsAttacking = false ;
+	bool PlayerHaveSavedAttack = false;
+	bool IsAttackingOne = false;
+	bool IsAttackingTwo = false;
+	bool IsAttackingThree = false ;
+	FTimerHandle SwordAttackOneDelay ;
+	FTimerHandle SwordAttackTwoDelay ;
+	FTimerHandle SwordAttackThreeDelay ;
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* AttackOneAnimMontage ;
+
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* AttacktowAnimMontage ;
+	
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* AttackthreeAnimMontage ;
+
+	//Attack Function
+public:
+	UFUNCTION(BlueprintCallable)
+	void SwordAttackCombo ();
+
+	UFUNCTION(BlueprintCallable)
+	void StopCombo () ;
+	
+private:
+	void ATtackTrigerd ();
+	void StartSwordAttack ();
+	void ChooseSwordAttackingAnim ();
+	void SwordAttackOne ();
+	void SwordAttackTwo();
+	void SwordAttackThree ();
 };

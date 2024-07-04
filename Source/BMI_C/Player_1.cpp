@@ -67,7 +67,10 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		//Space
 		EnhancedInputComponent->BindAction(PlayerInputJump , ETriggerEvent::Started , this , &APlayer_1::PlayerJump) ;
 		//Shift
-		EnhancedInputComponent->BindAction(PlayerInputDash , ETriggerEvent::Triggered , this , &APlayer_1::PlayerDash ) ; 
+		EnhancedInputComponent->BindAction(PlayerInputDash , ETriggerEvent::Triggered , this , &APlayer_1::PlayerDash ) ;
+		//Left Mousw buttom Sword
+		EnhancedInputComponent->BindAction(PlayerInputSwordAttack , ETriggerEvent::Started , this , &APlayer_1::ATtackTrigerd) ;
+
 	}
 }
 
@@ -76,49 +79,56 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 // Walk 
 void APlayer_1::PlayerMove(const FInputActionValue& InputValue)
 {
-	//Getting direction of the player 
-	Direction = InputValue.Get<FVector2d>();
-	DirectionX = Direction.X ;
-	DirectionY = Direction.Y ;
-	
-	// check if player can run 
-	if(Direction.Y == 1)
+	if(CanMove)
 	{
-		IsGoingForward =  true ; 
+		
+		//Getting direction of the player 
+		Direction = InputValue.Get<FVector2d>();
+		DirectionX = Direction.X ;
+		DirectionY = Direction.Y ;
+	
+		// check if player can run 
+		if(Direction.Y == 1)
+		{
+			IsGoingForward =  true ; 
+		}
+		else
+		{
+			IsGoingForward = false ;
+			IsRunning = false ;
+		}
+	
+		// Get player Velocity
+		PlayerVelocity = PlayerCharacterMovementComponent -> GetLastUpdateVelocity().Size() ;
+	
+		//Check if player stop : player cant run 
+		if (PlayerVelocity == 0 )
+		{
+			IsRunning = false ; 
+		}
+	
+		//to set extra rotation amount for dash 
+		calculateExtraRotationAmount() ;
+	
+		// Walk function 
+		AddMovementInput(GetActorForwardVector()*Direction.Y);
+		AddMovementInput(GetActorRightVector()*Direction.X) ;
 	}
-	else
-	{
-		IsGoingForward = false ;
-		IsRunning = false ;
-	}
-	
-	// Get player Velocity
-	PlayerVelocity = PlayerCharacterMovementComponent -> GetLastUpdateVelocity().Size() ;
-	
-	//Check if player stop : player cant run 
-	if (PlayerVelocity == 0 )
-	{
-		IsRunning = false ; 
-	}
-	
-	//to set extra rotation amount for dash 
-	calculateExtraRotationAmount() ;
-	
-	// Walk function 
-	AddMovementInput(GetActorForwardVector()*Direction.Y);
-	AddMovementInput(GetActorRightVector()*Direction.X) ;
 }
 
 
 // Set looking direction 
 void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
 {
-	FVector2d CameraRotation = InputValue.Get<FVector2d>();
-	AddControllerPitchInput(CameraRotation.Y * -1 * CameraRotationRate);
-	AddControllerYawInput(CameraRotation.X * CameraRotationRate);
+	if (CanMove)
+	{
+		FVector2d CameraRotation = InputValue.Get<FVector2d>();
+		AddControllerPitchInput(CameraRotation.Y * -1 * CameraRotationRate);
+		AddControllerYawInput(CameraRotation.X * CameraRotationRate);
 
-	//Call Turn In Place Func
-	TurnInPlace(CameraRotation.X);
+		//Call Turn In Place Func
+		TurnInPlace(CameraRotation.X);
+	}
 }
 
 
@@ -126,59 +136,62 @@ void APlayer_1::PlayerLook(const FInputActionValue& InputValue)
 // Jump function 
 void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 {
-	bool Jumped = InputValue.Get<bool>();
-	if (PlayerVelocity < 600)
+	if(CanMove)
 	{
+		bool Jumped = InputValue.Get<bool>();
+		if (PlayerVelocity < 600)
+		{
 		
 	
-		if (Jumped)
-		{
-			if (FirstJump)
+			if (Jumped)
 			{
-				Jump() ;
-				FirstJump = false;
-				Jumps ++ ;
-			}
-			else
-			{
-				if (Jumps == 1)
+				if (FirstJump)
 				{
-					GetMesh()->GetAnimInstance()->Montage_Play(DoubleJumpMontage);
-					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+					Jump() ;
+					FirstJump = false;
 					Jumps ++ ;
+				}
+				else
+				{
+					if (Jumps == 1)
+					{
+						GetMesh()->GetAnimInstance()->Montage_Play(DoubleJumpMontage);
+						LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+						Jumps ++ ;
+					}
 				}
 			}
 		}
-	}
-	else
-	{
-		float Zvelocity =PlayerCharacterMovementComponent->JumpZVelocity ;
-		float SecondJumpZvelocity1 = SecondJumpZvelocity ;
-		if (IsRunning)
+		else
 		{
-			PlayerCharacterMovementComponent->JumpZVelocity = PlayerCharacterMovementComponent ->JumpZVelocity * ExtraJumpAmountInRunning ;
-			SecondJumpZvelocity = SecondJumpZvelocity * ExtraJumpAmountInRunning ;
-		}
-		if (Jumped)
-		{
-			if (FirstJump)
+			float Zvelocity =PlayerCharacterMovementComponent->JumpZVelocity ;
+			float SecondJumpZvelocity1 = SecondJumpZvelocity ;
+			if (IsRunning)
 			{
-				Jump() ;
-				FirstJump = false;
-				Jumps ++ ;
+				PlayerCharacterMovementComponent->JumpZVelocity = PlayerCharacterMovementComponent ->JumpZVelocity * ExtraJumpAmountInRunning ;
+				SecondJumpZvelocity = SecondJumpZvelocity * ExtraJumpAmountInRunning ;
 			}
-			else
+			if (Jumped)
 			{
-				if (Jumps == 1)
+				if (FirstJump)
 				{
-					GetMesh()->GetAnimInstance()->Montage_Play(DoubleJumpMontage);
-					LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+					Jump() ;
+					FirstJump = false;
 					Jumps ++ ;
 				}
+				else
+				{
+					if (Jumps == 1)
+					{
+						GetMesh()->GetAnimInstance()->Montage_Play(DoubleJumpMontage);
+						LaunchCharacter(FVector(0.0f, 0.0f , SecondJumpZvelocity) , false , true) ;
+						Jumps ++ ;
+					}
+				}
 			}
+			PlayerCharacterMovementComponent->JumpZVelocity = Zvelocity ;
+			SecondJumpZvelocity = SecondJumpZvelocity1 ;	
 		}
-		PlayerCharacterMovementComponent->JumpZVelocity = Zvelocity ;
-		SecondJumpZvelocity = SecondJumpZvelocity1 ;	
 	}
 }
 
@@ -300,32 +313,138 @@ void APlayer_1::calculateExtraRotationAmount()
 
 void APlayer_1::TurnInPlace(float TurnAxis)
 {
-	//Check Turn Right or Left?
-	if (GetVelocity().Length() == 0)
+	if(CanMove)
 	{
-		if (TurnAxis > TurnInPlaceSensitivity)
+		//Check Turn Right or Left?
+		if (GetVelocity().Length() == 0)
 		{
-			TurnRight = true;
-			TurnLeft = false;
+			if (TurnAxis > TurnInPlaceSensitivity)
+			{
+				TurnRight = true;
+				TurnLeft = false;
+			}
+			if (TurnAxis <= TurnInPlaceSensitivity)
+			{
+				TurnRight = false;
+			}
+			if (TurnAxis < -TurnInPlaceSensitivity)
+			{
+				TurnRight = false;
+				TurnLeft = true;
+			}
+			if (TurnAxis >= -TurnInPlaceSensitivity)
+			{
+				TurnLeft = false;
+			}
 		}
-		if (TurnAxis <= TurnInPlaceSensitivity)
+		//if dont turn right or left make variables false
+		else
 		{
 			TurnRight = false;
-		}
-		if (TurnAxis < -TurnInPlaceSensitivity)
-		{
-			TurnRight = false;
-			TurnLeft = true;
-		}
-		if (TurnAxis >= -TurnInPlaceSensitivity)
-		{
 			TurnLeft = false;
 		}
-	}
-	//if dont turn right or left make variables false
-	else
-	{
-		TurnRight = false;
-		TurnLeft = false;
 	}
 }
+
+
+//Attack
+void APlayer_1::ATtackTrigerd()
+{
+	if (IfCanAttack)
+	{
+		StartSwordAttack();
+	}
+}
+
+void APlayer_1::StartSwordAttack()
+{
+	if (PlayerIsAttacking)
+	{
+		PlayerHaveSavedAttack = true ; 
+	}
+	else
+	{
+		PlayerIsAttacking = true ;
+		ChooseSwordAttackingAnim();
+	}
+}
+
+void APlayer_1::ChooseSwordAttackingAnim()
+{
+	switch (AttackIndex)
+	{
+	case 0:
+		{
+			AttackIndex ++ ;
+			CanMove = false ;
+			if (IsAttackingOne == false)
+			{
+				IsAttackingOne = true ;
+				GetWorldTimerManager().SetTimer(SwordAttackOneDelay , this , &APlayer_1::SwordAttackOne , 0.1f , false ) ;
+			}
+			CanMove = true;
+		}
+	case 1 :
+		{
+			AttackIndex ++ ;
+			CanMove = false ;
+			if (IsAttackingTwo)
+			{
+				IsAttackingTwo = true ;
+				GetWorldTimerManager().SetTimer(SwordAttackTwoDelay , this , &APlayer_1::SwordAttackTwo , 0.1f , false ) ;
+
+			}
+			CanMove = true ;
+		}
+	case 2:
+		{
+			AttackIndex ++ ;
+			CanMove = false ;
+			if (IsAttackingThree)
+			{
+				IsAttackingThree = true ;
+				GetWorldTimerManager().SetTimer(SwordAttackThreeDelay , this , &APlayer_1::SwordAttackThree , 0.1f , false ) ;
+			}
+			CanMove = true ; 
+		}
+	}
+}
+
+
+void APlayer_1::SwordAttackCombo()
+{
+	if (PlayerHaveSavedAttack)
+	{
+		ChooseSwordAttackingAnim();
+	}
+	else
+	{
+		StopCombo(); 
+	}
+}
+
+void APlayer_1::StopCombo()
+{
+	PlayerIsAttacking = false;
+	AttackIndex = 0 ;
+}
+
+
+void APlayer_1::SwordAttackOne()
+{
+	PlayAnimMontage(AttackOneAnimMontage);
+	IsAttackingOne = false ; 
+}
+
+void APlayer_1::SwordAttackTwo()
+{
+	PlayAnimMontage(AttacktowAnimMontage);
+	IsAttackingTwo = false ;
+}
+
+void APlayer_1::SwordAttackThree()
+{
+	PlayAnimMontage(AttackthreeAnimMontage);
+	IsAttackingThree = false ;
+}
+
