@@ -371,43 +371,45 @@ void APlayer_1::StartSwordAttack()
 
 void APlayer_1::ChooseSwordAttackingAnim()
 {
-	switch (AttackIndex)
-	{
-	case 0:
+	if(AttackIndex == 0){
+	
+		
+		CanMove = false ;
+		if (IsAttackingOne == false)
 		{
-			AttackIndex ++ ;
-			CanMove = false ;
-			if (IsAttackingOne == false)
-			{
-				IsAttackingOne = true ;
-				GetWorldTimerManager().SetTimer(SwordAttackOneDelay , this , &APlayer_1::SwordAttackOne , 0.1f , false ) ;
-			}
-			CanMove = true;
+			IsAttackingOne = true ;
+			GetWorldTimerManager().SetTimer(SwordAttackOneDelay , this , &APlayer_1::SwordAttackOne , 0.1f , false ) ;
 		}
-	case 1 :
-		{
-			AttackIndex ++ ;
-			CanMove = false ;
-			if (IsAttackingTwo)
-			{
-				IsAttackingTwo = true ;
-				GetWorldTimerManager().SetTimer(SwordAttackTwoDelay , this , &APlayer_1::SwordAttackTwo , 0.1f , false ) ;
-
-			}
-			CanMove = true ;
-		}
-	case 2:
-		{
-			AttackIndex ++ ;
-			CanMove = false ;
-			if (IsAttackingThree)
-			{
-				IsAttackingThree = true ;
-				GetWorldTimerManager().SetTimer(SwordAttackThreeDelay , this , &APlayer_1::SwordAttackThree , 0.1f , false ) ;
-			}
-			CanMove = true ; 
-		}
+		CanMove = true;
 	}
+	if(AttackIndex == 1)
+	{
+		
+		CanMove = false ;
+		if (IsAttackingTwo)
+		{
+			IsAttackingTwo = true ;
+			GetWorldTimerManager().SetTimer(SwordAttackTwoDelay , this , &APlayer_1::SwordAttackTwo , 0.1f , false ) ;
+		}
+		CanMove = true ;
+	}
+	if(AttackIndex == 2)
+	{
+		
+		CanMove = false ;
+		if (IsAttackingThree)
+		{
+			IsAttackingThree = true ;
+			GetWorldTimerManager().SetTimer(SwordAttackThreeDelay , this , &APlayer_1::SwordAttackThree , 0.1f , false ) ;
+		}
+		CanMove = true ;
+	}
+	if (AttackIndex == 3)
+	{
+		AttackIndex = 1 ; 
+	}
+	AttackIndex ++ ;
+	
 }
 
 
@@ -416,6 +418,7 @@ void APlayer_1::SwordAttackCombo()
 	if (PlayerHaveSavedAttack)
 	{
 		ChooseSwordAttackingAnim();
+		PlayerHaveSavedAttack = false ;
 	}
 	else
 	{
@@ -426,7 +429,6 @@ void APlayer_1::SwordAttackCombo()
 void APlayer_1::StopCombo()
 {
 	PlayerIsAttacking = false;
-	AttackIndex = 0 ;
 }
 
 

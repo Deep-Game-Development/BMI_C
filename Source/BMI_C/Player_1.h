@@ -146,6 +146,7 @@ private:
 	bool IsAttackingOne = false;
 	bool IsAttackingTwo = false;
 	bool IsAttackingThree = false ;
+	bool CanStopCombo = true ; 
 	FTimerHandle SwordAttackOneDelay ;
 	FTimerHandle SwordAttackTwoDelay ;
 	FTimerHandle SwordAttackThreeDelay ;
