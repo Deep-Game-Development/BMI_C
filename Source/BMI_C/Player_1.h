@@ -138,7 +138,7 @@ public:
 	bool IfCanAttack = true ;
 
 	UPROPERTY(BlueprintReadOnly);
-	int AttackIndex = 0; 
+	int AttackIndex = 1; 
 
 private:
 	bool PlayerIsAttacking = false ;
@@ -158,6 +158,8 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* AttackthreeAnimMontage ;
+
+	bool canStopCombo = true ; 
 
 	//Attack Function
 public:

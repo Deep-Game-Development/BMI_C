@@ -371,7 +371,7 @@ void APlayer_1::StartSwordAttack()
 
 void APlayer_1::ChooseSwordAttackingAnim()
 {
-	if(AttackIndex == 0){
+	if(AttackIndex%3 == 1){
 	
 		
 		CanMove = false ;
@@ -382,7 +382,7 @@ void APlayer_1::ChooseSwordAttackingAnim()
 		}
 		CanMove = true;
 	}
-	if(AttackIndex == 1)
+	if(AttackIndex%3 == 2)
 	{
 		
 		CanMove = false ;
@@ -393,7 +393,7 @@ void APlayer_1::ChooseSwordAttackingAnim()
 		}
 		CanMove = true ;
 	}
-	if(AttackIndex == 2)
+	if(AttackIndex%3 == 3)
 	{
 		
 		CanMove = false ;
@@ -404,10 +404,7 @@ void APlayer_1::ChooseSwordAttackingAnim()
 		}
 		CanMove = true ;
 	}
-	if (AttackIndex == 3)
-	{
-		AttackIndex = 1 ; 
-	}
+	
 	AttackIndex ++ ;
 	
 }
@@ -419,16 +416,20 @@ void APlayer_1::SwordAttackCombo()
 	{
 		ChooseSwordAttackingAnim();
 		PlayerHaveSavedAttack = false ;
+		canStopCombo = false ;
 	}
-	else
-	{
-		StopCombo(); 
+	else {
+		canStopCombo = true ; 
 	}
 }
 
 void APlayer_1::StopCombo()
 {
-	PlayerIsAttacking = false;
+	if (canStopCombo)
+	{
+		PlayerIsAttacking = false;
+		AttackIndex = 0 ; 
+	}
 }
 
 
