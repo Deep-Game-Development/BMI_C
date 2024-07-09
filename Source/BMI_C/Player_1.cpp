@@ -69,7 +69,7 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		//Shift
 		EnhancedInputComponent->BindAction(PlayerInputDash , ETriggerEvent::Triggered , this , &APlayer_1::PlayerDash ) ;
 		//Left Mousw buttom Sword
-		EnhancedInputComponent->BindAction(PlayerInputSwordAttack , ETriggerEvent::Started , this , &APlayer_1::ATtackTrigerd) ;
+		EnhancedInputComponent->BindAction(PlayerInputSwordAttack , ETriggerEvent::Started , this , &APlayer_1::AttackTriggered) ;
 
 	}
 }
@@ -346,108 +346,199 @@ void APlayer_1::TurnInPlace(float TurnAxis)
 	}
 }
 
+void APlayer_1::AnimationEnded()
+{
+	if (HaveSavedAttack)
+	{
+		AttackIndex ++ ;
+		PlayAttackAnim() ;
+		HaveSavedAttack = false; 
+	}
+	else
+	{
+		AttackIndex = 0 ;
+		IsAttacking = false; 
+	}
+}
+
+void APlayer_1::AttackTriggered()
+{
+	if (CanAttack)
+	{
+		if (IsAttacking)
+		{
+			HaveSavedAttack = true ; 
+		}
+		else
+		{
+			IsAttacking = true;
+			PlayAttackAnim(); 
+		}
+		
+	}
+}
+
+
+void APlayer_1::PlayAttackAnim()
+{
+	switch (AttackIndex)
+	{
+	case 0 :
+		{
+			PlayingAnimMontage = AttackOneAnimMontage ;
+			
+		}
+	case 1 :
+		{
+			PlayingAnimMontage = AttacktowAnimMontage ;
+			
+		}
+	case 2:
+		{
+			PlayingAnimMontage = AttackthreeAnimMontage;
+			
+		}
+	}
+	GetWorldTimerManager().SetTimer(SwordAttackDelay , this , &APlayer_1::PlaySwordAnimMontage , 0.1f , false ) ;
+}
+
+void APlayer_1::PlaySwordAnimMontage()
+{
+	PlayAnimMontage(PlayingAnimMontage) ; 
+}
+
 
 //Attack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 void APlayer_1::ATtackTrigerd()
 {
-	if (IfCanAttack)
-	{
-		StartSwordAttack();
-	}
+if (IfCanAttack)
+{
+StartSwordAttack();
+}
 }
 
 void APlayer_1::StartSwordAttack()
 {
-	if (PlayerIsAttacking)
-	{
-		PlayerHaveSavedAttack = true ; 
-	}
-	else
-	{
-		PlayerIsAttacking = true ;
-		ChooseSwordAttackingAnim();
-	}
+if (PlayerIsAttacking)
+{
+PlayerHaveSavedAttack = true ; 
+}
+else
+{
+PlayerIsAttacking = true ;
+ChooseSwordAttackingAnim();
+}
 }
 
 void APlayer_1::ChooseSwordAttackingAnim()
 {
-	if(AttackIndex%3 == 1){
+if(AttackIndex%3 == 1){
 	
 		
-		CanMove = false ;
-		if (IsAttackingOne == false)
-		{
-			IsAttackingOne = true ;
-			GetWorldTimerManager().SetTimer(SwordAttackOneDelay , this , &APlayer_1::SwordAttackOne , 0.1f , false ) ;
-		}
-		CanMove = true;
-	}
-	if(AttackIndex%3 == 2)
-	{
+CanMove = false ;
+if (IsAttackingOne == false)
+{
+IsAttackingOne = true ;
+GetWorldTimerManager().SetTimer(SwordAttackOneDelay , this , &APlayer_1::SwordAttackOne , 0.1f , false ) ;
+}
+CanMove = true;
+}
+if(AttackIndex%3 == 2)
+{
 		
-		CanMove = false ;
-		if (IsAttackingTwo)
-		{
-			IsAttackingTwo = true ;
-			GetWorldTimerManager().SetTimer(SwordAttackTwoDelay , this , &APlayer_1::SwordAttackTwo , 0.1f , false ) ;
-		}
-		CanMove = true ;
-	}
-	if(AttackIndex%3 == 3)
-	{
+CanMove = false ;
+if (IsAttackingTwo)
+{
+IsAttackingTwo = true ;
+GetWorldTimerManager().SetTimer(SwordAttackTwoDelay , this , &APlayer_1::SwordAttackTwo , 0.1f , false ) ;
+}
+CanMove = true ;
+}
+if(AttackIndex%3 == 3)
+{
 		
-		CanMove = false ;
-		if (IsAttackingThree)
-		{
-			IsAttackingThree = true ;
-			GetWorldTimerManager().SetTimer(SwordAttackThreeDelay , this , &APlayer_1::SwordAttackThree , 0.1f , false ) ;
-		}
-		CanMove = true ;
-	}
+CanMove = false ;
+if (IsAttackingThree)
+{
+IsAttackingThree = true ;
+GetWorldTimerManager().SetTimer(SwordAttackThreeDelay , this , &APlayer_1::SwordAttackThree , 0.1f , false ) ;
+}
+CanMove = true ;
+}
 	
-	AttackIndex ++ ;
+AttackIndex ++ ;
 	
 }
 
 
 void APlayer_1::SwordAttackCombo()
 {
-	if (PlayerHaveSavedAttack)
-	{
-		ChooseSwordAttackingAnim();
-		PlayerHaveSavedAttack = false ;
-		canStopCombo = false ;
-	}
-	else {
-		canStopCombo = true ; 
-	}
+if (PlayerHaveSavedAttack)
+{
+ChooseSwordAttackingAnim();
+PlayerHaveSavedAttack = false ;
+canStopCombo = false ;
+}
+else {
+canStopCombo = true ; 
+}
 }
 
 void APlayer_1::StopCombo()
 {
-	if (canStopCombo)
-	{
-		PlayerIsAttacking = false;
-		AttackIndex = 0 ; 
-	}
+if (canStopCombo)
+{
+PlayerIsAttacking = false;
+AttackIndex = 0 ; 
+}
 }
 
 
 void APlayer_1::SwordAttackOne()
 {
-	PlayAnimMontage(AttackOneAnimMontage);
-	IsAttackingOne = false ; 
+PlayAnimMontage(AttackOneAnimMontage);
+IsAttackingOne = false ; 
 }
 
 void APlayer_1::SwordAttackTwo()
 {
-	PlayAnimMontage(AttacktowAnimMontage);
-	IsAttackingTwo = false ;
+PlayAnimMontage(AttacktowAnimMontage);
+IsAttackingTwo = false ;
 }
 
 void APlayer_1::SwordAttackThree()
 {
-	PlayAnimMontage(AttackthreeAnimMontage);
-	IsAttackingThree = false ;
+PlayAnimMontage(AttackthreeAnimMontage);
+IsAttackingThree = false ;
 }
 
+*/
