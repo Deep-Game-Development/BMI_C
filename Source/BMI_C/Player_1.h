@@ -82,9 +82,10 @@ private:
 	UCharacterMovementComponent*PlayerCharacterMovementComponent ;
 
 	// Move Variables :
-	UPROPERTY(EditAnywhere , Category="Movement")
+public:
+	UPROPERTY(EditAnywhere,  BlueprintReadOnly, Category="Movement")
 	float CameraRotationRate = 10.0 ;
-	
+private:	
 	UPROPERTY(EditAnywhere , Category="Movement")
 	float DashDistance = 6000 ;
 
