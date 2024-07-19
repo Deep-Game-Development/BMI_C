@@ -6,6 +6,8 @@
 #include "InputAction.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Misc/OutputDeviceNull.h"
 #include "Player_1.generated.h"
 
 class UInputMappingContext ;
@@ -142,7 +144,12 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* AttackthreeAnimMontage ;
-	
+
+	UPROPERTY(BlueprintReadWrite)
+	bool CalledAnimMontage = false ;
+
+	UPROPERTY(EditAnywhere ,BlueprintReadWrite, Category="BluprintClasses")
+	ACharacter* Player_1BluprintCharacter ;  
 private:
 	bool CanAttack = true ;
 	bool IsAttacking = false ;
@@ -158,56 +165,4 @@ private:
 	void AttackTriggered (); 
 	void PlayAttackAnim ();
 	void PlaySwordAnimMontage ();
-
-
-
-
-
-	
-	// AttackVariables
-	/*
-public:
-	UPROPERTY(BlueprintReadWrite)
-	bool IfCanAttack = true ;
-
-	UPROPERTY(BlueprintReadOnly);
-	int AttackIndex = 1; 
-
-private:
-	bool PlayerIsAttacking = false ;
-	bool PlayerHaveSavedAttack = false;
-	bool IsAttackingOne = false;
-	bool IsAttackingTwo = false;
-	bool IsAttackingThree = false ;
-	bool CanStopCombo = true ; 
-	FTimerHandle SwordAttackOneDelay ;
-	FTimerHandle SwordAttackTwoDelay ;
-	FTimerHandle SwordAttackThreeDelay ;
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttackOneAnimMontage ;
-
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttacktowAnimMontage ;
-	
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttackthreeAnimMontage ;
-
-	bool canStopCombo = true ; 
-
-	//Attack Function
-public:
-	UFUNCTION(BlueprintCallable)
-	void SwordAttackCombo ();
-
-	UFUNCTION(BlueprintCallable)
-	void StopCombo () ;
-	
-private:
-	void ATtackTrigerd ();
-	void StartSwordAttack ();
-	void ChooseSwordAttackingAnim ();
-	void SwordAttackOne ();
-	void SwordAttackTwo();
-	void SwordAttackThree ();*/
-	
 };
