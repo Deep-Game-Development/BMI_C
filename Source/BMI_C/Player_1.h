@@ -42,6 +42,13 @@ protected:
 
 	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category=Input )
 	UInputAction* PlayerInputPressedF ;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category=Input )
+	UInputAction* PlayerInputDefense;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category=Input )
+	UInputAction* PlayerInputDefenseD;
+
 	
 	UPROPERTY(BlueprintReadOnly, Category="TurnInPlace")
 	bool TurnRight;
@@ -149,7 +156,11 @@ public:
 	bool CalledAnimMontage = false ;
 
 	UPROPERTY(EditAnywhere ,BlueprintReadWrite, Category="BluprintClasses")
-	ACharacter* Player_1BluprintCharacter ;  
+	ACharacter* Player_1BluprintCharacter ;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool BDefenseUp = false; 
+	
 private:
 	bool CanAttack = true ;
 	bool IsAttacking = false ;
@@ -163,6 +174,7 @@ public:
 	void AnimationEnded ();
 private:
 	void AttackTriggered (); 
-	void PlayAttackAnim ();
-	void PlaySwordAnimMontage ();
+	void  DefenseUp ();
+	void DefenseDown () ;
+	
 };

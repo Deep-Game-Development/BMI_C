@@ -71,7 +71,7 @@ void APlayer_1::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(PlayerInputDash , ETriggerEvent::Triggered , this , &APlayer_1::PlayerDash ) ;
 		//Left Mousw buttom Sword
 		EnhancedInputComponent->BindAction(PlayerInputSwordAttack , ETriggerEvent::Started , this , &APlayer_1::AttackTriggered) ;
-
+		
 	}
 }
 
@@ -387,4 +387,14 @@ void APlayer_1::AttackTriggered()
 		}
 		
 	}
+}
+
+void APlayer_1::DefenseUp()
+{
+	BDefenseUp = true ;
+}
+
+void APlayer_1::DefenseDown()
+{
+	BDefenseUp = false; 
 }
