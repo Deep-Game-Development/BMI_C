@@ -159,7 +159,7 @@ public:
 	ACharacter* Player_1BluprintCharacter ;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool BDefenseUp = false; 
+	bool BBDefenseUp = false; 
 	
 private:
 	bool CanAttack = true ;

@@ -391,10 +391,8 @@ void APlayer_1::AttackTriggered()
 
 void APlayer_1::DefenseUp()
 {
-	BDefenseUp = true ;
 }
 
 void APlayer_1::DefenseDown()
 {
-	BDefenseUp = false; 
 }
