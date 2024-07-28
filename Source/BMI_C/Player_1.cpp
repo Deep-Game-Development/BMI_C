@@ -382,7 +382,11 @@ void APlayer_1::AttackTriggered()
 			const FString command = FString :: Printf(TEXT("PlaySwordAnimMontage"));
 			if (Player_1BluprintCharacter)
 			{
-				Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ; 
+				Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ;
+				if (GetCharacterMovement()->IsFalling())
+				{
+					LaunchCharacter(FVector (0.f , 0.f ,  1000.f) , false , true);
+				}
 			}
 		}
 		

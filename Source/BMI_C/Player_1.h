@@ -163,8 +163,9 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	bool CanAttack = true ;
 	
-
-	
+	/*UPROPERTY(EditAnywhere)
+	float AttackingJumpVelocity = 200 ; 
+	*/
 private:
 	bool IsAttacking = false ;
 	bool HaveSavedAttack = false ;
