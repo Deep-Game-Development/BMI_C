@@ -69,7 +69,7 @@ public:
 
 	virtual void Landed(const FHitResult& Hit) override;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	bool IsRunning ;
 	UPROPERTY(BlueprintReadOnly)
 	float DirectionX ;
@@ -159,10 +159,13 @@ public:
 	ACharacter* Player_1BluprintCharacter ;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool BBDefenseUp = false; 
+	bool BBDefenseUp = false;
+	UPROPERTY(BlueprintReadWrite)
+	bool CanAttack = true ;
+	
+
 	
 private:
-	bool CanAttack = true ;
 	bool IsAttacking = false ;
 	bool HaveSavedAttack = false ;
 	FTimerHandle SwordAttackDelay ;

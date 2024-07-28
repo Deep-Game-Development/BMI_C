@@ -41,7 +41,7 @@ void APlayer_1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	//Set player speed with checking the state of player (running / walking)
-	if (IsRunning)
+	if (IsRunning && BBDefenseUp==false )
 	{
 		PlayerCharacterMovementComponent -> MaxWalkSpeed = RunSpeed;
 	}
