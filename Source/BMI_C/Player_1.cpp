@@ -346,17 +346,23 @@ void APlayer_1::TurnInPlace(float TurnAxis)
 		}
 	}
 }
-
+//Called When One animation Ended ( Its because of playing animation after one another ) 
 void APlayer_1::AnimationEnded()
 {
+	//Checked if player clicked when animation was playing 
 	if (HaveSavedAttack)
 	{
+		//Call Playing animation in bluprint 
 		AttackIndex ++ ;
 		FOutputDeviceNull Arguments ;
 		const FString command = FString :: Printf(TEXT("PlaySwordAnimMontage"));
 		if (Player_1BluprintCharacter)
 		{
-			Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ; 
+			Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ;
+			if (GetCharacterMovement()->IsFalling())
+			{
+				LaunchCharacter(FVector (0.f , 0.f ,  400.f) , false , true);
+			}
 		}
 		HaveSavedAttack = false; 
 	}
@@ -366,7 +372,7 @@ void APlayer_1::AnimationEnded()
 		IsAttacking = false; 
 	}
 }
-
+// Called When player clicked on left mouse buttom 
 void APlayer_1::AttackTriggered()
 {
 	if (CanAttack)
@@ -385,7 +391,7 @@ void APlayer_1::AttackTriggered()
 				Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ;
 				if (GetCharacterMovement()->IsFalling())
 				{
-					LaunchCharacter(FVector (0.f , 0.f ,  1000.f) , false , true);
+					LaunchCharacter(FVector (0.f , 0.f ,  400.f) , false , true);
 				}
 			}
 		}
@@ -393,10 +399,3 @@ void APlayer_1::AttackTriggered()
 	}
 }
 
-void APlayer_1::DefenseUp()
-{
-}
-
-void APlayer_1::DefenseDown()
-{
-}

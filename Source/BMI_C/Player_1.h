@@ -162,10 +162,6 @@ public:
 	bool BBDefenseUp = false;
 	UPROPERTY(BlueprintReadWrite)
 	bool CanAttack = true ;
-	
-	/*UPROPERTY(EditAnywhere)
-	float AttackingJumpVelocity = 200 ; 
-	*/
 private:
 	bool IsAttacking = false ;
 	bool HaveSavedAttack = false ;
@@ -178,7 +174,5 @@ public:
 	void AnimationEnded ();
 private:
 	void AttackTriggered (); 
-	void  DefenseUp ();
-	void DefenseDown () ;
 	
 };
