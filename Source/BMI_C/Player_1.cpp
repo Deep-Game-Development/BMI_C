@@ -353,7 +353,6 @@ void APlayer_1::AnimationEnded()
 	if (HaveSavedAttack)
 	{
 		//Call Playing animation in bluprint 
-		AttackIndex ++ ;
 		FOutputDeviceNull Arguments ;
 		const FString command = FString :: Printf(TEXT("PlaySwordAnimMontage"));
 		if (Player_1BluprintCharacter)
@@ -368,7 +367,6 @@ void APlayer_1::AnimationEnded()
 	}
 	else
 	{
-		AttackIndex = 0 ;
 		IsAttacking = false; 
 	}
 }

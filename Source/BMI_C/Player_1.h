@@ -141,38 +141,35 @@ private:
 	//the sensitivity of Turn In Place
 	UPROPERTY(EditDefaultsOnly, Category="TurnInPlace")
 	float TurnInPlaceSensitivity = 0.3;
+	
 	// AttackVariables
 public:
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttackOneAnimMontage ;
-
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttacktowAnimMontage ;
-	
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttackthreeAnimMontage ;
-
-	UPROPERTY(BlueprintReadWrite)
-	bool CalledAnimMontage = false ;
-
 	UPROPERTY(EditAnywhere ,BlueprintReadWrite, Category="BluprintClasses")
 	ACharacter* Player_1BluprintCharacter ;
-
+	
+	//Is Defensing 
 	UPROPERTY(BlueprintReadWrite)
 	bool BBDefenseUp = false;
+	
 	UPROPERTY(BlueprintReadWrite)
 	bool CanAttack = true ;
+
 private:
+	//Attacking Variables 
 	bool IsAttacking = false ;
+	
 	bool HaveSavedAttack = false ;
+	
 	FTimerHandle SwordAttackDelay ;
-	UAnimMontage* PlayingAnimMontage  ;
-	int AttackIndex = 0 ;
+	
 	//Attack Function
 public:
+	//Called when one animation ended 
 	UFUNCTION(BlueprintCallable)
 	void AnimationEnded ();
+	
 private:
+	//Attack Started 
 	void AttackTriggered (); 
 	
 };
