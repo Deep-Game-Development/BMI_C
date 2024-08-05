@@ -165,8 +165,8 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 		}
 		else
 		{
-			float Zvelocity =PlayerCharacterMovementComponent->JumpZVelocity ;
-			float SecondJumpZvelocity1 = SecondJumpZvelocity ;
+			const float ZVelocity =PlayerCharacterMovementComponent->JumpZVelocity ;
+			const float SecondJumpZVelocity1 = SecondJumpZvelocity ;
 			if (IsRunning)
 			{
 				PlayerCharacterMovementComponent->JumpZVelocity = PlayerCharacterMovementComponent ->JumpZVelocity * ExtraJumpAmountInRunning ;
@@ -190,8 +190,8 @@ void APlayer_1::PlayerJump(const FInputActionValue& InputValue)
 					}
 				}
 			}
-			PlayerCharacterMovementComponent->JumpZVelocity = Zvelocity ;
-			SecondJumpZvelocity = SecondJumpZvelocity1 ;	
+			PlayerCharacterMovementComponent->JumpZVelocity = ZVelocity ;
+			SecondJumpZvelocity = SecondJumpZVelocity1;	
 		}
 	}
 }
@@ -338,7 +338,7 @@ void APlayer_1::TurnInPlace(float TurnAxis)
 				TurnLeft = false;
 			}
 		}
-		//if dont turn right or left make variables false
+		//if don't turn right or left make variables false
 		else
 		{
 			TurnRight = false;
@@ -352,12 +352,12 @@ void APlayer_1::AnimationEnded()
 	//Checked if player clicked when animation was playing 
 	if (HaveSavedAttack)
 	{
-		//Call Playing animation in bluprint 
+		//Call Playing animation in blueprint 
 		FOutputDeviceNull Arguments ;
 		const FString command = FString :: Printf(TEXT("PlaySwordAnimMontage"));
 		if (Player_1BluprintCharacter)
 		{
-			Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ;
+			Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , nullptr, true) ;
 			if (GetCharacterMovement()->IsFalling())
 			{
 				LaunchCharacter(FVector (0.f , 0.f ,  400.f) , false , true);
@@ -370,7 +370,7 @@ void APlayer_1::AnimationEnded()
 		IsAttacking = false; 
 	}
 }
-// Called When player clicked on left mouse buttom 
+// Called When player clicked on left mouse button 
 void APlayer_1::AttackTriggered()
 {
 	if (CanAttack)
@@ -386,7 +386,7 @@ void APlayer_1::AttackTriggered()
 			const FString command = FString :: Printf(TEXT("PlaySwordAnimMontage"));
 			if (Player_1BluprintCharacter)
 			{
-				Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , NULL , true) ;
+				Player_1BluprintCharacter-> CallFunctionByNameWithArguments(*command , Arguments , nullptr, true) ;
 				if (GetCharacterMovement()->IsFalling())
 				{
 					LaunchCharacter(FVector (0.f , 0.f ,  400.f) , false , true);
@@ -396,4 +396,3 @@ void APlayer_1::AttackTriggered()
 		
 	}
 }
-
