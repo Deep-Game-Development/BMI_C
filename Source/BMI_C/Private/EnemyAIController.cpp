@@ -5,11 +5,19 @@
 #include "Engine/DataTable.h"
 #include "Kismet/DataTableFunctionLibrary.h"
 #include "Struct.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 void AEnemyAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	HandleEnemyDataTable();
+	BlackboardKeySaver();
+}
+
+void AEnemyAIController::HandleEnemyDataTable()
+{
 	//Define an Array of Name and store row names of EnemyDataTable
 	TArray<FName> RowNames;
 	UDataTableFunctionLibrary::GetDataTableRowNames(EnemyDataTable, RowNames);
@@ -31,4 +39,10 @@ void AEnemyAIController::BeginPlay()
 			break;
 		}
 	}
+}
+
+void AEnemyAIController::BlackboardKeySaver()
+{
+	//TargetActor fot Chase BTTask
+	GetBlackboardComponent()->SetValueAsObject(TargetActor, UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 }

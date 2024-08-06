@@ -16,7 +16,15 @@ class AEnemyAIController : public AAIController
 	
 	virtual void BeginPlay() override;
 
+	void HandleEnemyDataTable();
+
+	void BlackboardKeySaver();
+	
 	//Set the Behavior Tree in Blueprint to run that
 	UPROPERTY(EditDefaultsOnly)
 	UDataTable* EnemyDataTable;
+
+	//Name of the Blackboard keys to save them in BlackboardKeySaver func
+	UPROPERTY(EditDefaultsOnly, Category="Blackboard Keys")
+	FName TargetActor = "TargetActor";
 };
