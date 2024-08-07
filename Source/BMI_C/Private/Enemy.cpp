@@ -2,33 +2,29 @@
 
 
 #include "Enemy.h"
+#include "AIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
-// Sets default values
 AEnemy::AEnemy()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	//Add PawnSensing component
+	PawnSensing = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("Pawn Sensor"));
 }
 
-// Called when the game starts or when spawned
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	//Bind PawnSensing OnSeePawn delegate to OnPawnSeen function
+	PawnSensing->OnSeePawn.AddDynamic(this, &AEnemy::OnPawnSeen);
 }
 
-// Called every frame
-void AEnemy::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
 void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
+void AEnemy::OnPawnSeen(APawn* SeenPawn)
+{
+	//Set SeenPlayer value in Blackboard when seen a paawn
+	Cast<AAIController>(GetController())->GetBlackboardComponent()->SetValueAsBool(SeenPlayerBlackBoardKeyName, true);
+}

@@ -4,26 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Perception/PawnSensingComponent.h"
 #include "Enemy.generated.h"
+
 
 UCLASS()
 class AEnemy : public ACharacter
 {
 	GENERATED_BODY()
 
-public:
-	// Sets default values for this character's properties
+public:	
 	AEnemy();
+	
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+private:
+	//Create PawnSensing component
+	UPROPERTY(EditDefaultsOnly)
+	UPawnSensingComponent* PawnSensing;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//Create a function to run when see a pawn
+	UFUNCTION()
+	virtual	void OnPawnSeen(APawn* SeenPawn);
+	
+	UPROPERTY(EditDefaultsOnly)
+	FName SeenPlayerBlackBoardKeyName = "SeenPlayer";
 
 };
