@@ -14,6 +14,7 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	//Bind PawnSensing OnSeePawn delegate to OnPawnSeen function
 	PawnSensing->OnSeePawn.AddDynamic(this, &AEnemy::OnPawnSeen);
 }
@@ -25,6 +26,6 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AEnemy::OnPawnSeen(APawn* SeenPawn)
 {
-	//Set SeenPlayer value in Blackboard when seen a paawn
+	//Set SeenPlayer value in Blackboard when seen a pawn
 	Cast<AAIController>(GetController())->GetBlackboardComponent()->SetValueAsBool(SeenPlayerBlackBoardKeyName, true);
 }
