@@ -5,6 +5,7 @@
 
 AWeapon::AWeapon()
 {
+	//Create a Static Mesh Component and make it root to set the weapon mesh to that
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Weapon Mesh"));
 	SetRootComponent(BaseMesh);
 }
