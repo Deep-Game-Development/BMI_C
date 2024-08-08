@@ -23,7 +23,7 @@ protected:
 
 private:
 	//Create PawnSensing component
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditInstanceOnly)
 	UPawnSensingComponent* PawnSensing;
 
 	//Create a function to run when see a pawn

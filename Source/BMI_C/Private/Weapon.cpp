@@ -3,25 +3,13 @@
 
 #include "Weapon.h"
 
-// Sets default values
 AWeapon::AWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Weapon Mesh"));
+	SetRootComponent(BaseMesh);
 }
 
-// Called when the game starts or when spawned
-void AWeapon::BeginPlay()
+void AWeapon::Attack()
 {
-	Super::BeginPlay();
-	
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Black, "Attack");
 }
-
-// Called every frame
-void AWeapon::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
