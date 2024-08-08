@@ -14,10 +14,10 @@ class AWeapon : public AActor
 public:	
 	AWeapon();
 
-private:
 	UFUNCTION()
 	virtual void Attack();
 
+private:
 	UPROPERTY(EditDefaultsOnly)
 	float Damage;
 	
